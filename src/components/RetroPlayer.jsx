@@ -103,20 +103,21 @@ export default function RetroPlayer({
         </div>
 
         <div className="rp-buttons">
+          {/* ︎ = VARIATION SELECTOR-15: fuerza render texto (no color emoji en iOS) */}
           <button className="rp-btn" title="anterior" onClick={() => skip(-10)} disabled={!canControl}>
-            <span className="rp-ico">◀◀</span>
+            <span className="rp-ico">{'◀︎◀︎'}</span>
           </button>
           <button className="rp-btn" title="siguiente" onClick={() => skip(10)} disabled={!canControl}>
-            <span className="rp-ico">▶▶</span>
+            <span className="rp-ico">{'▶︎▶︎'}</span>
           </button>
           <button className="rp-btn" title={playing ? 'pausar' : 'reproducir'} onClick={togglePlay} disabled={!canControl}>
-            <span className="rp-ico">{playing ? '❚❚' : '▶'}</span>
+            <span className="rp-ico">{playing ? '❙❙' : '▶︎'}</span>
           </button>
           <button className="rp-btn" title="detener" onClick={stop} disabled={!canControl}>
-            <span className="rp-ico rp-ico-sq">■</span>
+            <span className="rp-ico rp-ico-sq">{'■︎'}</span>
           </button>
           <button className="rp-btn" title="grabar" disabled>
-            <span className="rp-ico rp-ico-rec">●</span>
+            <span className="rp-ico rp-ico-rec">{'●︎'}</span>
           </button>
         </div>
       </div>

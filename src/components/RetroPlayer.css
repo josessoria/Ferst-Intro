@@ -207,6 +207,10 @@
   letter-spacing: -1px;
   color: #000;
   transform: translateY(-1px);
+  /* Forzar family sin emoji color — iOS por defecto usa Apple Color Emoji */
+  font-family: Tahoma, 'MS Sans Serif', 'Segoe UI Symbol', Arial, sans-serif;
+  font-variant-emoji: text;   /* hint moderno de Chrome/Firefox */
+  -webkit-font-feature-settings: "liga" off;
 }
 .rp-ico-sq { font-size: 12px; letter-spacing: 0; }
 .rp-ico-rec { font-size: 12px; letter-spacing: 0; color: #000; }
