@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import Slot from '../components/Slot'
 import './MSN.css'
 
@@ -162,14 +162,32 @@ const MOODS = {
   alguien_como_vos:     'buscándote en otras caras',
 }
 
-/* ─── Parse @user references into clickable spans ─── */
+/* ─── Parse **bold** *italic* _underline_ ─── */
+function parseFormatting(text, keyPrefix = 'f') {
+  const out = []
+  const re = /(\*\*([^*]+?)\*\*)|(\*([^*]+?)\*)|(_([^_]+?)_)/g
+  let idx = 0, m, key = 0
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > idx) out.push(text.slice(idx, m.index))
+    if (m[2])      out.push(<b key={`${keyPrefix}b${key++}`}>{m[2]}</b>)
+    else if (m[4]) out.push(<i key={`${keyPrefix}i${key++}`}>{m[4]}</i>)
+    else if (m[6]) out.push(<u key={`${keyPrefix}u${key++}`}>{m[6]}</u>)
+    idx = m.index + m[0].length
+  }
+  if (idx < text.length) out.push(text.slice(idx))
+  return out.length ? out : text
+}
+
+/* ─── Parse @user references + formatting into clickable spans ─── */
 function renderText(text, onOpen) {
   // matcha @token con caracteres válidos para handle: letras, dígitos, _, ?, ¿, tilde, ñ
   const re = /@([\w?¿áéíóúñü_]+)/gi
   const out = []
   let last = 0, m, key = 0
   while ((m = re.exec(text)) !== null) {
-    if (m.index > last) out.push(text.slice(last, m.index))
+    if (m.index > last) {
+      out.push(<span key={`t-${key++}`}>{parseFormatting(text.slice(last, m.index), `f${key}`)}</span>)
+    }
     const user = m[1]
     out.push(
       <button
@@ -186,7 +204,9 @@ function renderText(text, onOpen) {
     )
     last = m.index + m[0].length
   }
-  if (last < text.length) out.push(text.slice(last))
+  if (last < text.length) {
+    out.push(<span key={`t-${key++}`}>{parseFormatting(text.slice(last), `f${key}`)}</span>)
+  }
   return out
 }
 
@@ -217,17 +237,80 @@ export default function MSN({
 }) {
   const [draft, setDraft] = useState('')
   const [sent, setSent]   = useState([])
+  const textareaRef = useRef(null)
   const chatLog = useMemo(
     () => LOGS[contact] || fallbackLog(contact, blocked),
     [contact, blocked]
   )
   const mood = MOODS[contact] || (blocked ? 'no quiero hablar con nadie' : 'sin descripción')
 
+  /* Timestamp real formato HH:MM */
+  const now = () => {
+    const d = new Date()
+    return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`
+  }
+
+  /* Inserta texto en la posición del cursor del textarea */
+  const insertText = (text) => {
+    const ta = textareaRef.current
+    if (!ta) { setDraft(d => d + text); return }
+    const start = ta.selectionStart
+    const end   = ta.selectionEnd
+    const newValue = draft.slice(0, start) + text + draft.slice(end)
+    setDraft(newValue)
+    requestAnimationFrame(() => {
+      ta.focus()
+      const pos = start + text.length
+      ta.setSelectionRange(pos, pos)
+    })
+  }
+
+  /* Envuelve la selección (o inserta marcador si no hay selección) */
+  const wrapSelection = (marker) => {
+    const ta = textareaRef.current
+    if (!ta) return
+    const start = ta.selectionStart
+    const end   = ta.selectionEnd
+    const selected = draft.slice(start, end)
+    const before = draft.slice(0, start)
+    const after  = draft.slice(end)
+    const newValue = before + marker + selected + marker + after
+    setDraft(newValue)
+    requestAnimationFrame(() => {
+      ta.focus()
+      if (selected.length === 0) {
+        // Sin selección: posiciona el cursor entre los markers
+        const pos = start + marker.length
+        ta.setSelectionRange(pos, pos)
+      } else {
+        // Con selección: selecciona lo mismo pero ya envuelto
+        ta.setSelectionRange(start + marker.length, end + marker.length)
+      }
+    })
+  }
+
   const send = (e) => {
-    e.preventDefault()
-    if (!draft.trim()) return
-    setSent([...sent, { t: 'ahora', text: draft }])
+    if (e) e.preventDefault()
+    if (!draft.trim() || blocked) return
+    setSent([...sent, { t: now(), text: draft }])
     setDraft('')
+    requestAnimationFrame(() => textareaRef.current?.focus())
+  }
+
+  const onCompoKey = (e) => {
+    // Enter envía · Shift+Enter salto de línea
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      send()
+      return
+    }
+    // Ctrl/Cmd + B/I/U para formato rápido
+    if (e.ctrlKey || e.metaKey) {
+      const k = e.key.toLowerCase()
+      if (k === 'b') { e.preventDefault(); wrapSelection('**') }
+      else if (k === 'i') { e.preventDefault(); wrapSelection('*') }
+      else if (k === 'u') { e.preventDefault(); wrapSelection('_') }
+    }
   }
 
   return (
@@ -315,33 +398,39 @@ export default function MSN({
       </div>
 
       <div className="msn-emobar">
-        <button>♡</button><button>✕</button><button>☹</button>
-        <button>☾</button><button>✞</button><button>✧</button>
+        <button type="button" onClick={() => insertText('♡')} title="corazón">♡</button>
+        <button type="button" onClick={() => insertText('✕')} title="tache">✕</button>
+        <button type="button" onClick={() => insertText('☹')} title="triste">☹</button>
+        <button type="button" onClick={() => insertText('☾')} title="luna">☾</button>
+        <button type="button" onClick={() => insertText('✞')} title="cruz">✞</button>
+        <button type="button" onClick={() => insertText('✧')} title="chispa">✧</button>
         <span className="msn-emobar-sep" />
-        <button className="msn-font"><b>N</b></button>
-        <button className="msn-font"><i>K</i></button>
-        <button className="msn-font"><u>S</u></button>
+        <button type="button" className="msn-font" onClick={() => wrapSelection('**')} title="negrita (Ctrl+B)"><b>N</b></button>
+        <button type="button" className="msn-font" onClick={() => wrapSelection('*')} title="cursiva (Ctrl+I)"><i>K</i></button>
+        <button type="button" className="msn-font" onClick={() => wrapSelection('_')} title="subrayado (Ctrl+U)"><u>S</u></button>
       </div>
 
       <form className="msn-compose" onSubmit={send}>
         <textarea
+          ref={textareaRef}
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
+          onKeyDown={onCompoKey}
           onFocus={(e) => {
-            // Mobile: cuando aparece el keyboard, subir el textarea a la vista
+            /* Mobile: cuando aparece el keyboard, subir el textarea a la vista */
             if (window.innerWidth <= 640) {
               const el = e.target
-              // Doble delay: primero el browser reposiciona por keyboard, después scrolleamos
               setTimeout(() => {
                 el.scrollIntoView({ block: 'center', behavior: 'smooth' })
               }, 350)
             }
           }}
+          disabled={blocked}
           placeholder={blocked
             ? 'no podés enviarle mensajes.'
-            : `escribile a ${contact}...`}
+            : `escribile a ${contact}... (Enter para enviar)`}
         />
-        <button type="submit" className="msn-send">enviar</button>
+        <button type="submit" className="msn-send" disabled={blocked}>enviar</button>
       </form>
 
       <footer className="msn-status">

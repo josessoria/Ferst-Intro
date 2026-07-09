@@ -218,9 +218,15 @@ export default function LimeWire({ onClose, onMin, onMax, isMaximized, onOpen })
             <div
               key={i}
               className={`lw-row ${selected === i ? 'sel' : ''} ${r.status}`}
-              onClick={() => setSelected(i)}
+              onClick={() => {
+                setSelected(i)
+                // Mobile: single tap abre directo (no hay concepto de doble clic con dedo)
+                if (window.innerWidth <= 640 && r.opens) {
+                  onOpen?.(r.opens.app, r.opens.props || {})
+                }
+              }}
               onDoubleClick={() => { setSelected(i); if (r.opens) onOpen?.(r.opens.app, r.opens.props || {}) }}
-              title={r.opens ? 'clic para previsualizar · doble clic para abrir' : 'archivo no accesible'}
+              title={r.opens ? 'tap para abrir (mobile) · clic para previsualizar / doble clic para abrir (desktop)' : 'archivo no accesible'}
             >
               <span className="lw-name">
                 <span className="lw-icon">
