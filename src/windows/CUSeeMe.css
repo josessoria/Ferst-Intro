@@ -149,10 +149,21 @@
 .mm-drop-item.quiet:hover { background: var(--cold-white); color: var(--black); }
 .mm-drop-icon {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 16px; height: 14px;
+  width: 28px; height: 22px;
   color: var(--black);
+  overflow: visible;
 }
 .mm-drop-icon svg { display: block; width: 12px; height: 12px; }
+.mm-drop-icon img {
+  display: block;
+  width: 24px; height: 24px;
+  object-fit: contain;
+  margin: -4px 0;
+}
+.mm-drop-icon .mbm-png-lg {
+  width: 28px; height: 28px;
+  margin: -6px 0;
+}
 .mm-drop-sep {
   height: 1px; background: var(--aero-divider); margin: 4px 0;
 }
@@ -259,14 +270,36 @@
 }
 .mbm-btn:hover { color: var(--black); text-decoration: underline; }
 .mbm-btn:active { color: #666; }
+.mbm-btn {
+  line-height: 1;
+}
 .mbm-icon {
   display: inline-flex;
   align-items: center; justify-content: center;
   font-size: 14px;
-  line-height: 1;
+  line-height: 0;   /* no reserva vertical extra por text baseline */
   color: var(--black);
+  overflow: visible;
 }
 .mbm-icon svg { display: block; width: 14px; height: 14px; }
+.mbm-icon img,
+.mbm-png {
+  display: block;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+  user-select: none;
+  -webkit-user-drag: none;
+  /* Negative margin: el icono se ve grande pero NO empuja la altura del botón */
+  margin: -10px 0;
+}
+/* wacha.png (donde_estas?) — bien dominante */
+.mbm-png.mbm-png-lg {
+  width: 40px;
+  height: 40px;
+  margin: -14px 0;
+}
 .mbm-btn:hover .mbm-icon { color: var(--black); }
 
 /* ── Página ── */
@@ -282,7 +315,7 @@
   max-width: 900px;
   margin: 0 auto;
 }
-/* C-me 1 Last Time · Georgia italic bold + sombrita mínima detrás */
+/* C-Me like the 1st time · Georgia italic bold + sombrita mínima detrás */
 .cu-logo {
   font-family: var(--f-title);
   font-style: italic;
@@ -293,6 +326,34 @@
   letter-spacing: -1.5px;
   line-height: 1;
   text-shadow: 4px 4px 0 rgba(13, 13, 13, 0.35);
+}
+/* Logo como imagen PNG · reemplaza al texto CSS cuando existe /logo.png */
+.cu-logo-img {
+  text-shadow: none;
+  padding: 0;
+  /* Márgenes negativos: absorbe el whitespace interno del PNG */
+  margin: -30px 0 -40px;
+  overflow: visible;
+}
+.cu-logo-img img {
+  display: block;
+  /* Escalado más grande que el contenedor → el texto se lee más grande */
+  width: 115%;
+  max-width: none;
+  height: auto;
+  margin: 0 auto;
+  /* Centra horizontalmente cuando excede el contenedor */
+  transform: translateX(-6.5%);
+  image-rendering: -webkit-optimize-contrast;
+}
+@media (max-width: 640px) {
+  .cu-logo-img {
+    margin: -18px 0 -24px;
+  }
+  .cu-logo-img img {
+    width: 108%;
+    transform: translateX(-3.7%);
+  }
 }
 .cu-lasttime {
   font-family: var(--f-title);
@@ -583,6 +644,19 @@
   width: 22px;
   height: 22px;
 }
+.cu-shortcut-icon img {
+  display: block;
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.cu-shortcut-icon .mbm-png-lg {
+  width: 68px;
+  height: 68px;
+}
 .cu-shortcut-lbl {
   font-family: var(--f-link);
   font-size: 13px;
@@ -659,6 +733,18 @@
     flex-shrink: 0;
     padding: 6px 12px;
     font-size: 13px;
+    gap: 7px;
+  }
+  .mbm-icon img,
+  .mbm-png {
+    width: 34px;
+    height: 34px;
+    margin: -11px 0;
+  }
+  .mbm-png.mbm-png-lg {
+    width: 42px;
+    height: 42px;
+    margin: -15px 0;
   }
 
   /* Hero más compacto — deja que las cards asomen antes del fold */

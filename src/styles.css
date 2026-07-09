@@ -175,19 +175,19 @@ video, img {
 }
 
 @media (max-width: 640px) {
-  /* Labels visibles pero truncados — cada chat abierto se diferencia por handle */
+  /* Labels truncados por caracteres (10+ellipsis) via JS — CSS de respaldo */
   .os-tasklabel {
     display: inline-block;
-    max-width: 68px;
+    max-width: 90px;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: clip;
     white-space: nowrap;
     font-size: 10px;
     letter-spacing: 0;
   }
   .os-taskbtn {
     min-width: auto;
-    max-width: 110px;
+    max-width: 130px;
     padding: 0 8px;
     gap: 5px;
   }

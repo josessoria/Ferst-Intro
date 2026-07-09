@@ -78,34 +78,35 @@ const feeds = [
   },
 ]
 
-/* ─── Iconos SOLID FILL negros (estilo Windows XP · siluetas rellenas) ─── */
-const IconMSN = () => (
-  <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true">
-    <path d="M3 2h10a1.5 1.5 0 0 1 1.5 1.5v6A1.5 1.5 0 0 1 13 11H9l-3 3v-3H3a1.5 1.5 0 0 1-1.5-1.5v-6A1.5 1.5 0 0 1 3 2z"/>
-  </svg>
-)
-const IconSearch = () => (
-  <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true">
-    <circle cx="6.5" cy="6.5" r="4.5"/>
-    <path d="M10.5 10.5l4.5 4.5-1.5 1.5-4.5-4.5z"/>
-  </svg>
-)
-const IconMP3 = () => (
-  <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true">
-    <ellipse cx="5" cy="12" rx="3" ry="2"/>
-    <path d="M7.3 3l6.7-1.5v9.5a2 2 0 1 1-1.5-1.9V4L8.8 5v7H7.3V3z"/>
-  </svg>
-)
-const IconPill = () => (
-  <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true">
-    <path d="M10.5 1.5a3.5 3.5 0 0 1 2.5 5.98l-5.02 5.02a3.5 3.5 0 0 1-4.95-4.95L8.05 2.55a3.49 3.49 0 0 1 2.45-1.05z"/>
-  </svg>
+/* ─── Iconos como imágenes PNG (assets en /public) ─── */
+const IconImg = ({ src, alt, size = 'md' }) => (
+  <img
+    src={src}
+    alt={alt}
+    className={`mbm-png mbm-png-${size}`}
+    draggable={false}
+  />
 )
 
 const bookmarks = [
-  { app: 'msn',      label: 'MSN Messenger', icon: <IconMSN />,    emoji: '💬' },
-  { app: 'limewire', label: 'donde_estas?',  icon: <IconSearch />, emoji: '🔍' },
-  { app: 'mp3',      label: 'mp3 file',      icon: <IconMP3 />,    emoji: '♪' },
+  {
+    app:   'msn',
+    label: 'MSN Messenger',
+    icon:  <IconImg src="/ffb08ed6aa4ffbe085675c1a67a41774.png" alt="MSN" />,
+    emoji: '💬',
+  },
+  {
+    app:   'limewire',
+    label: 'donde_estas?',
+    icon:  <IconImg src="/wacha.png" alt="search" size="lg" />,
+    emoji: '🔍',
+  },
+  {
+    app:   'mp3',
+    label: 'mp3 file',
+    icon:  <IconImg src="/carpeta%20audio.png" alt="audio folder" />,
+    emoji: '♪',
+  },
 ]
 
 export default function CUSeeMe({ onOpen }) {
@@ -148,7 +149,7 @@ export default function CUSeeMe({ onOpen }) {
   return (
     <section className="win cuseeme-win">
       <header className="mosaic-titlebar win-drag">
-        <span className="mosaic-title">C-me — welcome 2 our memories</span>
+        <span className="mosaic-title">C-Me like the 1st time — welcome 2 ur last fucking chance!</span>
         <span className="mosaic-controls">
           <span className="mc mc-min">_</span>
           <span className="mc mc-max">□</span>
@@ -231,8 +232,22 @@ export default function CUSeeMe({ onOpen }) {
 
       <div className="mosaic-page">
         <div className="cu-page-inner">
-          <h1 className="cu-logo">C-me <span className="cu-lasttime">1 Last Time</span></h1>
-          <div className="cu-welcome">welcome 2 our memories</div>
+          <h1 className="cu-logo cu-logo-img">
+            <img
+              src="/logo.png"
+              alt="C-Me like the 1st time — welcome 2 ur last fucking chance!"
+              onError={(e) => {
+                /* Si el PNG no está, muestra fallback de texto */
+                e.currentTarget.style.display = 'none'
+                const fb = e.currentTarget.nextElementSibling
+                if (fb) fb.style.display = 'block'
+              }}
+            />
+            <span className="cu-logo-fallback" style={{ display: 'none' }}>
+              C-Me <span className="cu-lasttime">like the 1st time</span>
+              <div className="cu-welcome-inline">welcome 2 ur last fucking chance!</div>
+            </span>
+          </h1>
           <p className="cu-instr">
             clic en cualquier <b>transmisión</b> para abrir la conversación con quien la emite
           </p>

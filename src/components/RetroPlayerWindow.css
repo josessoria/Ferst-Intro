@@ -104,6 +104,11 @@
     max-width: none;
     /* mantiene border + shadow para ventana flotante */
   }
+  /* Touch targets del titlebar */
+  .rpw-title { height: 32px; padding: 0 0 0 12px; }
+  .rpw-t-ctrls { height: 32px; }
+  .rpw-t-ctrls .mc { width: 34px; height: 26px; font-size: 13px; }
+  .rpw-t-ctrls .mc-x { width: 46px; }
   .rpw-body .retro-player {
     padding: 12px;
   }

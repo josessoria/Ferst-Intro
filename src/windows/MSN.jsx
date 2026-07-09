@@ -327,6 +327,16 @@ export default function MSN({
         <textarea
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
+          onFocus={(e) => {
+            // Mobile: cuando aparece el keyboard, subir el textarea a la vista
+            if (window.innerWidth <= 640) {
+              const el = e.target
+              // Doble delay: primero el browser reposiciona por keyboard, después scrolleamos
+              setTimeout(() => {
+                el.scrollIntoView({ block: 'center', behavior: 'smooth' })
+              }, 350)
+            }
+          }}
           placeholder={blocked
             ? 'no podés enviarle mensajes.'
             : `escribile a ${contact}...`}

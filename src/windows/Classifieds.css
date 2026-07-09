@@ -228,13 +228,17 @@
   }
 
   .ads-titlebar {
-    padding: 8px 12px;
+    padding: 0 0 0 12px;
     font-size: 13px;
+    height: 32px;
   }
+  /* Touch targets ampliados */
+  .ads-tb-ctrls { height: 32px; }
   .ads-tb-ctrls .mc {
-    width: 30px; height: 26px;
+    width: 34px; height: 26px;
     font-size: 13px;
   }
+  .ads-tb-ctrls .mc-x { width: 46px; }
 
   .ads-paper {
     max-height: none;

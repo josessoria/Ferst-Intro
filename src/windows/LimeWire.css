@@ -371,6 +371,12 @@
     /* mantiene border + shadow para ventana flotante */
   }
 
+  /* Touch targets ampliados en titlebar */
+  .lw-title { height: 32px; padding: 0 0 0 12px; }
+  .lw-ctrls { height: 32px; }
+  .lw-ctrls .mc { width: 34px; height: 26px; font-size: 13px; }
+  .lw-ctrls .mc-x { width: 46px; }
+
   .lw-menu { display: none; }
 
   .lw-tabs { padding: 0; }

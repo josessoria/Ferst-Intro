@@ -402,12 +402,18 @@
 
   /* Titlebar más chunky para touch */
   .msn-title {
-    padding: 8px 12px;
+    padding: 0 0 0 12px;
+    font-size: 13px;
+    height: 32px;
+  }
+  /* Touch targets ampliados: 34x26 min/max, 46x26 close */
+  .msn-t-ctrls { height: 32px; }
+  .msn-t-ctrls .mc {
+    width: 34px; height: 26px;
     font-size: 13px;
   }
-  .msn-t-ctrls .mc {
-    width: 30px; height: 26px;
-    font-size: 13px;
+  .msn-t-ctrls .mc-close {
+    width: 46px;
   }
 
   /* Menu oculto en mobile */

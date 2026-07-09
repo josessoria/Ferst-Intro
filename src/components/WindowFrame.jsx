@@ -3,15 +3,17 @@ import './WindowFrame.css'
 
 /**
  * Contenedor draggable para ventanas flotantes.
- * - Drag por elemento con clase .win-drag (funciona en mouse Y touch)
+ * - Drag por elemento .win-drag (mouse + touch)
  * - Click en cualquier parte trae al frente (onFocus)
- * - Constraints: la ventana nunca sale del viewport (deja mínimo 80px visible)
+ * - Mobile: swipe vertical hacia abajo (>90px) sobre el titlebar cierra la ventana
+ * - Constraints: nunca sale del viewport (mínimo 80px visibles)
  */
 export default function WindowFrame({
   children,
   defaultPos = { x: 60, y: 60 },
   zIndex = 100,
   onFocus,
+  onSwipeClose,
   minimized = false,
   maximized = false,
 }) {
@@ -30,17 +32,23 @@ export default function WindowFrame({
     const origX = posRef.current.x
     const origY = posRef.current.y
 
-    // Bloquear selección de texto durante el drag
+    // Bloquear selección durante el drag
     document.body.classList.add('is-dragging')
-    // Clear cualquier selección en curso
     if (window.getSelection) window.getSelection().removeAllRanges()
 
+    let lastDeltaY = 0
+    const isMobile = window.innerWidth <= 640
+    const SWIPE_CLOSE_THRESHOLD = 90   // px verticales para disparar close
+
     const onMove = (ev) => {
-      // Cap: al menos 80px visible siempre (para que no se pierda la ventana)
+      const dx = ev.clientX - startX
+      const dy = ev.clientY - startY
+      lastDeltaY = dy
+
       const maxX = Math.max(0, window.innerWidth - 80)
       const maxY = Math.max(0, window.innerHeight - 80)
-      const nx = Math.max(0, Math.min(maxX, origX + ev.clientX - startX))
-      const ny = Math.max(0, Math.min(maxY, origY + ev.clientY - startY))
+      const nx = Math.max(0, Math.min(maxX, origX + dx))
+      const ny = Math.max(0, Math.min(maxY, origY + dy))
       setPos({ x: nx, y: ny })
     }
     const onUp = () => {
@@ -48,6 +56,11 @@ export default function WindowFrame({
       window.removeEventListener('pointermove', onMove)
       window.removeEventListener('pointerup', onUp)
       window.removeEventListener('pointercancel', onUp)
+
+      // Mobile: si el gesto fue hacia abajo >90px, cerrar la ventana
+      if (isMobile && lastDeltaY > SWIPE_CLOSE_THRESHOLD && onSwipeClose) {
+        onSwipeClose()
+      }
     }
     window.addEventListener('pointermove', onMove)
     window.addEventListener('pointerup', onUp)

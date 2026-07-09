@@ -90,6 +90,7 @@ export default function App() {
             defaultPos={defaultPos}
             zIndex={zMap[w.id] || 100}
             onFocus={() => focusApp(w.id)}
+            onSwipeClose={() => closeApp(w.id)}
             minimized={!!minimized[w.id]}
             maximized={!!maximized[w.id]}
           >
@@ -134,7 +135,11 @@ export default function App() {
                                         '📰'}
               </span>
               <span className="os-tasklabel">
-                {w.props?.contact ?? APPS[w.app].label}
+                {(() => {
+                  const raw = w.props?.contact ?? APPS[w.app].label
+                  // Trunca por caracteres (no por pixeles) para diferenciar handles largos
+                  return raw.length > 11 ? raw.slice(0, 10) + '…' : raw
+                })()}
               </span>
             </button>
           ))}
