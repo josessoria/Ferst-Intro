@@ -1,0 +1,119 @@
+/* ═══════════════════════════════════════════════════════════════
+   RetroPlayerWindow — mismo chrome Aero que las otras ventanas
+   ═══════════════════════════════════════════════════════════════ */
+
+.rpw-win {
+  max-width: 620px;
+  width: 92vw;
+  background: var(--white);
+  color: var(--black);
+  font-family: var(--f-body);
+  border: 1px solid var(--aero-frame);
+  box-shadow: var(--aero-window-shadow);
+  border-radius: 6px 6px 0 0;
+  overflow: hidden;
+}
+
+/* Titlebar */
+.rpw-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--aero-titlebar-bg);
+  color: var(--aero-titlebar-text);
+  padding: 0 0 0 10px;
+  font-family: var(--f-ui);
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0;
+  text-transform: none;
+  border-bottom: 1px solid var(--aero-titlebar-border);
+  height: 28px;
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.06);
+  position: relative;
+  z-index: 1;
+}
+.rpw-title, .rpw-t-icon, .rpw-t-text, .rpw-t-ctrls { position: relative; z-index: 1; }
+
+.rpw-t-icon {
+  width: 14px; height: 14px;
+  background:
+    radial-gradient(circle at 30% 30%, #ffb75e 0 3px, #ed8f3a 4px 8px, #c96a1a 9px 100%);
+  border-radius: 50%;
+  flex: none;
+}
+.rpw-t-text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rpw-t-ctrls {
+  display: flex;
+  height: 28px;
+  align-items: flex-start;
+  padding: 0 5px 0 0;
+  gap: 1px;
+}
+.rpw-t-ctrls .mc {
+  width: 24px; height: 19px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--aero-tb-btn-bg);
+  border: 1px solid var(--aero-btn-close-border);
+  border-top: none;
+  color: #ffffff;
+  font-family: var(--f-ui);
+  font-size: 11px;
+  border-radius: 0 0 2px 2px;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+}
+.rpw-t-ctrls .mc:hover { background: var(--aero-tb-btn-bg-hover); }
+.rpw-t-ctrls .mc:active { background: var(--aero-tb-btn-bg-active); box-shadow: none; }
+.rpw-t-ctrls .mc-x {
+  width: 32px;
+  background: var(--aero-btn-close-bg);
+  color: #ffffff;
+  border-radius: 0 0 2px 2px;
+}
+.rpw-t-ctrls .mc-x:hover { background: var(--aero-btn-close-bg-hover); color: #fff; }
+
+/* Body: el RetroPlayer ocupa el 100% de la ventana, sin borde propio */
+.rpw-body {
+  padding: 0;
+  background: var(--cold-white);
+}
+.rpw-body .retro-player {
+  margin: 0;
+  max-width: none;
+  width: 100%;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 16px;
+}
+
+/* Mobile — takeover fullscreen igual que las otras windows */
+@media (max-width: 640px) {
+  .rpw-win {
+    width: 100%;
+    max-width: none;
+    box-shadow: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .rpw-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+  }
+  .rpw-body .retro-player {
+    padding: 12px;
+  }
+}

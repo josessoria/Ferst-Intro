@@ -1,7 +1,7 @@
-# push.ps1 — commit y push en un solo comando
+# push.ps1 -- commit y push en un solo comando
 # uso: .\push.ps1 "mensaje del commit"
 #   ej: .\push.ps1 "fix: colores del titlebar"
-# si no pasás mensaje, usa un default con fecha
+# si no pasas mensaje, usa un default con fecha
 
 param([string]$msg = "update $(Get-Date -Format 'yyyy-MM-dd HH:mm')")
 
@@ -16,5 +16,5 @@ if ([string]::IsNullOrWhiteSpace($changes)) {
 } else {
   git commit -m $msg
   git push
-  Write-Host "→ pusheado: $msg" -ForegroundColor Green
+  Write-Host "-> pusheado: $msg" -ForegroundColor Green
 }

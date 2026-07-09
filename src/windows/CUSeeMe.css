@@ -1,11 +1,9 @@
 .cuseeme-win {
-  background: var(--cold-white);
+  background: var(--white);
   color: var(--black);
   font-family: var(--f-body);
-  border: 1px solid var(--black);
-  box-shadow:
-    inset -1px -1px 0 #808080,
-    inset  1px  1px 0 #fff;
+  border: 1px solid var(--aero-frame);
+  box-shadow: inset 0 0 0 1px var(--aero-frame-inner);
   width: 100%;
   height: 100%;
   display: flex;
@@ -13,198 +11,262 @@
   min-height: 0;
 }
 
-/* ── Titlebar chunky Y2K ── */
+/* ── Titlebar Windows 7 Aero (dark) ── */
 .mosaic-titlebar {
   display: flex; align-items: center; justify-content: space-between;
-  background: var(--black);
-  color: var(--cold-white);
-  padding: 4px 8px;
-  font-family: var(--f-pixel);
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.6px;
-  text-transform: uppercase;
+  background: var(--aero-titlebar-bg);
+  color: var(--aero-titlebar-text);
+  padding: 0 0 0 10px;
+  font-family: var(--f-ui);
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0;
+  text-transform: none;
   flex: none;
-  border-bottom: 1px solid var(--black);
-  box-shadow: inset 0 -1px 0 #303033;
+  border-bottom: 1px solid var(--aero-titlebar-border);
+  height: 28px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.4);
+}
+.mosaic-titlebar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--aero-titlebar-shine);
+  pointer-events: none;
+}
+.mosaic-title {
+  display: flex; align-items: center; gap: 6px;
+}
+.mosaic-title::before {
+  content: '';
+  display: inline-block;
+  width: 14px; height: 14px;
+  background:
+    radial-gradient(circle at 30% 30%, #ffb75e 0 3px, #ed8f3a 4px 8px, #c96a1a 9px 100%);
+  border-radius: 2px;
+  flex: none;
 }
 .mosaic-title { padding-left: 0; }
-.mosaic-controls { display: flex; gap: 6px; }
+.mosaic-controls {
+  display: flex;
+  align-items: flex-start;    /* pegados arriba, no centrados */
+  height: 28px;
+  padding: 0 5px 0 0;         /* solo padding derecha, ninguno arriba */
+  gap: 1px;
+  position: relative;
+  z-index: 1;
+}
 .mc {
-  width: 20px; height: 18px;
+  width: 24px;
+  height: 19px;
   padding: 0;
   display: inline-flex; align-items: center; justify-content: center;
-  background: var(--cold-white);
-  color: var(--black);
-  border: 1px solid var(--black);
-  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #808080;
-  font-family: var(--f-pixel);
-  font-size: 11px; line-height: 1;
+  background: var(--aero-tb-btn-bg);
+  color: #ffffff;
+  border: 1px solid var(--aero-btn-close-border);
+  border-top: none;                /* pegado al borde superior del titlebar */
+  font-family: var(--f-ui);
+  font-size: 11px;
+  line-height: 1;
   cursor: pointer;
+  transition: background 80ms;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+  border-radius: 0 0 2px 2px;
 }
-.mc:hover { background: #d0d0d0; }
-.mc:active { box-shadow: inset -1px -1px 0 #fff, inset 1px 1px 0 #808080; }
-.mc-close:hover { background: var(--red); color: #fff; }
+.mc:hover { background: var(--aero-tb-btn-bg-hover); }
+.mc:active { background: var(--aero-tb-btn-bg-active); box-shadow: none; }
+.mc-close {
+  width: 32px;
+  background: var(--aero-btn-close-bg);
+  color: #ffffff;
+  border-radius: 0 0 2px 2px;
+  font-weight: 400;
+}
+.mc-close:hover { background: var(--aero-btn-close-bg-hover); color: #fff; }
+.mc-close:active { background: linear-gradient(180deg, #1c1c1c 0%, #2f2f2f 100%); }
 
-/* ── Menu ── */
+/* ── Menu Aero ── */
 .mosaic-menu {
   display: flex; gap: 0;
-  background: var(--cold-white);
-  padding: 0;
-  border-bottom: 1px solid var(--black);
-  font-size: 11px;
+  background: var(--white);
+  padding: 0 4px;
+  border-bottom: 1px solid var(--aero-divider);
+  font-size: 12px;
   position: relative;
   flex: none;
 }
 .mm {
-  padding: 5px 10px;
+  padding: 6px 10px;
   color: var(--black);
-  font-family: var(--f-pixel);
+  font-family: var(--f-ui);
   font-weight: 400;
-  letter-spacing: 0.3px;
-  text-transform: lowercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
-.mm u { text-decoration: none; }
+.mm u { text-decoration: underline; text-underline-offset: 2px; }
 .mm-clickable { cursor: pointer; user-select: none; position: relative; }
 .mm-clickable:hover,
 .mm-clickable.active {
-  background: var(--black); color: var(--cold-white);
+  background: linear-gradient(180deg, #cde5f5 0%, #9dcbea 100%);
+  color: var(--black);
+  border: 1px solid #6ba3d4;
+  padding: 5px 9px;
 }
 
-/* ── Dropdown Hotlists ── */
+/* ── Dropdown Hotlists Aero ── */
 .mm-dropdown {
   position: absolute;
   top: 100%; left: 0;
   min-width: 260px;
   background: var(--white);
-  border: 1px solid var(--grey-light);
-  padding: 6px 0;
+  border: 1px solid var(--aero-titlebar-border);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.18);
+  border-radius: 0 0 4px 4px;
+  padding: 4px 0;
   z-index: 1000;
   color: var(--black);
-  font-size: 13px;
-  font-family: var(--f-body);
+  font-size: 12px;
+  font-family: var(--f-ui);
 }
 .mm-drop-title {
-  font-size: 11px; padding: 6px 14px 2px;
+  font-size: 11px; padding: 4px 12px 2px;
   color: var(--grey);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
+  font-style: italic;
 }
 .mm-drop-item {
   display: flex; align-items: center; gap: 10px;
-  padding: 8px 14px;
+  padding: 6px 12px;
   cursor: pointer;
 }
-.mm-drop-item:hover { background: var(--cold-white); }
+.mm-drop-item:hover { background: linear-gradient(180deg, #cde5f5 0%, #9dcbea 100%); }
 .mm-drop-item.off { color: var(--grey); cursor: not-allowed; }
 .mm-drop-item.off:hover { background: transparent; }
-.mm-drop-item.quiet { color: var(--grey); font-size: 11px; padding: 6px 14px; }
+.mm-drop-item.quiet { color: var(--grey); font-size: 11px; padding: 4px 12px; }
 .mm-drop-item.quiet:hover { background: var(--cold-white); color: var(--black); }
 .mm-drop-icon {
-  display: inline-block; width: 16px; text-align: center;
-  color: var(--grey);
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 16px; height: 14px;
+  color: var(--black);
 }
+.mm-drop-icon svg { display: block; width: 12px; height: 12px; }
 .mm-drop-sep {
-  height: 1px; background: var(--grey-light); margin: 6px 0;
+  height: 1px; background: var(--aero-divider); margin: 4px 0;
 }
 
-/* ── Toolbar ── */
+/* ── Toolbar Aero ── */
 .mosaic-toolbar {
-  display: flex; align-items: center; gap: 3px;
-  padding: 4px 6px;
-  border-bottom: 1px solid var(--black);
-  background: var(--cold-white);
+  display: flex; align-items: center; gap: 4px;
+  padding: 5px 8px;
+  border-bottom: 1px solid var(--aero-divider);
+  background: var(--white);
   flex: none;
 }
 .mtb-btn {
-  width: 26px; height: 22px;
-  background: var(--cold-white);
-  border: 1px solid var(--black);
-  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #808080;
+  width: 28px; height: 26px;
+  background: var(--aero-btn-bg);
+  border: 1px solid var(--aero-btn-border);
+  border-radius: 3px;
   color: var(--black);
-  font-size: 11px;
+  font-family: var(--f-ui);
+  font-size: 12px;
   padding: 0;
+  transition: background 80ms, border-color 80ms;
 }
-.mtb-btn:hover { background: var(--white); }
-.mtb-btn:active { box-shadow: inset -1px -1px 0 #fff, inset 1px 1px 0 #808080; }
+.mtb-btn:hover {
+  background: var(--aero-btn-bg-hover);
+  border-color: var(--aero-btn-border-hover);
+}
+.mtb-btn:active { background: var(--aero-btn-bg-active); }
 .mtb-sep {
-  width: 1px; height: 18px; background: #808080;
-  box-shadow: 1px 0 0 #fff;
+  width: 1px; height: 18px; background: var(--aero-divider);
   margin: 0 4px;
 }
 .mtb-select {
-  height: 22px;
-  border: 1px solid var(--black);
-  background: var(--cold-white);
+  height: 26px;
+  border: 1px solid var(--aero-input-border);
+  background: var(--aero-input-bg);
   color: var(--black);
-  font-family: var(--f-pixel);
-  font-size: 10px;
-  padding: 0 6px;
-  text-transform: lowercase;
+  font-family: var(--f-ui);
+  font-size: 12px;
+  padding: 0 8px;
+  text-transform: none;
+  border-radius: 2px;
 }
 
-/* ── Address ── */
+/* ── Address bar Aero ── */
 .mosaic-address {
   display: flex; align-items: center; gap: 6px;
-  background: var(--cold-white);
-  padding: 4px 8px;
-  border-bottom: 1px solid var(--black);
+  background: var(--white);
+  padding: 5px 8px;
+  border-bottom: 1px solid var(--aero-divider);
   flex: none;
 }
 .ma-icon {
-  width: 20px; height: 20px;
+  width: 22px; height: 26px;
   display: inline-flex; align-items: center; justify-content: center;
-  background: var(--white);
-  border: 1px solid var(--black);
-  box-shadow: inset 1px 1px 0 #808080;
-  font-size: 11px; color: var(--red);
+  background: transparent;
+  border: none;
+  font-size: 13px; color: #ffb800;
   flex: none;
 }
 .ma-input {
   flex: 1;
-  height: 22px;
-  border: 1px solid var(--black);
-  background: var(--white);
+  height: 26px;
+  border: 1px solid var(--aero-input-border);
+  background: var(--aero-input-bg);
   color: var(--black);
-  box-shadow: inset 1px 1px 0 #808080;
-  padding: 0 6px;
-  font-family: var(--f-crt);
-  font-size: 14px;
+  box-shadow: var(--aero-input-shadow);
+  padding: 0 10px;
+  font-family: var(--f-ui);
+  font-size: 12px;
   min-width: 0;
-  letter-spacing: 0.3px;
+  letter-spacing: 0;
+  border-radius: 2px;
 }
-.ma-input:focus { outline: none; border-color: var(--blue); }
+.ma-input:focus { outline: none; border-color: var(--aero-input-focus); box-shadow: 0 0 0 2px rgba(78,155,227,0.20); }
 
-/* ── Bookmarks toolbar ── */
+/* ── Bookmarks · estilo footer Windows XP (Help · About · Home · Email) ── */
 .mosaic-bookmarks {
-  display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
-  background: var(--cold-white);
-  padding: 4px 8px;
-  border-bottom: 1px solid var(--black);
+  display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+  background:
+    linear-gradient(180deg, #f6f6f6 0%, #e6e6e6 50%, #cdcdcd 100%);
+  padding: 4px 14px;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #909090;
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05);
   flex: none;
+  min-height: 26px;
 }
 .mbm-label {
-  font-family: var(--f-pixel);
-  font-size: 10px; color: var(--grey);
-  padding-right: 8px;
-  border-right: 1px solid var(--grey);
-  margin-right: 6px;
-  letter-spacing: 0.5px;
-  text-transform: lowercase;
+  display: none;                     /* oculto: no hay "links:" en la ref */
 }
 .mbm-btn {
-  display: inline-flex; align-items: center; gap: 4px;
-  padding: 2px 8px;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 2px 0;
   background: transparent;
   border: none;
-  font-family: var(--f-link);
+  font-family: var(--f-ui);
   font-size: 12px;
-  color: var(--blue);
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  color: var(--black);
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-font-smoothing: none;
+  transition: color 60ms;
 }
-.mbm-btn:hover { background: var(--white); color: var(--black); }
-.mbm-icon { font-size: 11px; color: var(--grey); }
+.mbm-btn:hover { color: var(--black); text-decoration: underline; }
+.mbm-btn:active { color: #666; }
+.mbm-icon {
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--black);
+}
+.mbm-icon svg { display: block; width: 14px; height: 14px; }
 .mbm-btn:hover .mbm-icon { color: var(--black); }
 
 /* ── Página ── */
@@ -220,7 +282,7 @@
   max-width: 900px;
   margin: 0 auto;
 }
-/* C-me 1 Last Time · Georgia italic bold (referencia: Silk Road logo) */
+/* C-me 1 Last Time · Georgia italic bold + sombrita mínima detrás */
 .cu-logo {
   font-family: var(--f-title);
   font-style: italic;
@@ -230,6 +292,7 @@
   margin: 0;
   letter-spacing: -1.5px;
   line-height: 1;
+  text-shadow: 4px 4px 0 rgba(13, 13, 13, 0.35);
 }
 .cu-lasttime {
   font-family: var(--f-title);
@@ -272,11 +335,17 @@
   max-width: 720px;
   margin: 0 auto;
 }
-@media (max-width: 620px) {
-  .cu-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+@media (max-width: 900px) {
+  .cu-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
 }
-@media (max-width: 380px) {
-  .cu-grid { grid-template-columns: 1fr; }
+/* Mobile — feed vertical (cada card = un momento) */
+@media (max-width: 640px) {
+  .cu-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 100%;
+    padding: 0 2px;
+  }
 }
 
 .cu-feed {
@@ -453,13 +522,19 @@
   border-radius: 8px;
   text-align: center;
 }
+/* section header estilo "Video Information" · Tahoma Bold pixel-crisp */
 .cu-shortcuts-h {
-  font-family: var(--f-display);
+  font-family: var(--f-ui);
   font-weight: 700;
   color: var(--black);
-  font-size: 20px;
-  margin: 0 0 4px;
-  letter-spacing: -0.4px;
+  font-size: 13px;
+  margin: 0 0 6px;
+  letter-spacing: 0;
+  -webkit-font-smoothing: none;
+  text-transform: none;
+  border-bottom: 1px solid var(--aero-divider);
+  padding-bottom: 4px;
+  display: inline-block;
 }
 .cu-shortcuts-sub {
   font-family: var(--f-body);
@@ -492,13 +567,19 @@
 }
 .cu-shortcut-icon {
   font-size: 24px; line-height: 1;
-  color: var(--grey);
+  color: var(--black);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.cu-shortcut-icon svg {
+  display: block;
+  width: 22px;
+  height: 22px;
 }
 .cu-shortcut-lbl {
   font-family: var(--f-link);
   font-size: 13px;
   font-weight: 700;
-  color: var(--blue);
+  color: var(--link);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -540,38 +621,143 @@
   text-decoration: underline;
   text-underline-offset: 2px;
 }
-.cu-broughtby a:hover { color: var(--blue); background: transparent; }
+.cu-broughtby a:hover { color: var(--link); background: transparent; }
 
-/* ── Status ── */
+/* ═══════════════════════════════════════════
+   MOBILE — chrome minimal, contenido protagonista
+   ═══════════════════════════════════════════ */
+@media (max-width: 640px) {
+  /* Chrome del "navegador" reducido a lo esencial */
+  .mosaic-menu { display: none; }
+  .mosaic-toolbar { display: none; }
+
+  /* Address bar minimalista */
+  .mosaic-address {
+    padding: 6px 8px;
+  }
+  .ma-icon { display: none; }
+  .ma-input { font-size: 12px; height: 26px; }
+
+  /* Bookmarks: scroll horizontal, sin label */
+  .mosaic-bookmarks {
+    padding: 6px 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex-wrap: nowrap;
+  }
+  .mosaic-bookmarks::-webkit-scrollbar { display: none; }
+  .mbm-label { display: none; }
+  .mbm-btn {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  /* Hero title más protagonista */
+  .cu-page-inner {
+    padding: 26px 14px 40px;
+    max-width: 100%;
+  }
+  .cu-logo {
+    font-size: clamp(40px, 13vw, 62px);
+    letter-spacing: -1px;
+    text-shadow: 3px 3px 0 rgba(13, 13, 13, 0.28);
+  }
+  .cu-welcome {
+    font-size: 15px;
+    margin: 4px 0 16px;
+  }
+  .cu-instr {
+    font-size: 12px;
+    padding: 7px 12px;
+    margin: 0 0 22px;
+  }
+
+  /* Feed cards Instagram-like — mucho más aire y peso visual */
+  .cu-feed {
+    box-shadow: 3px 3px 0 var(--black);
+  }
+  .cu-feed-bar {
+    padding: 7px 12px;
+    font-size: 12px;
+  }
+  .cu-feed-meta {
+    padding: 12px 14px 6px;
+  }
+  .cu-feed-title { font-size: 16px; line-height: 1.25; }
+  .cu-feed-sub { font-size: 13px; line-height: 1.4; white-space: normal; }
+  .cu-feed-loc { font-size: 12px; }
+  .cu-feed-foot {
+    padding: 6px 14px 14px;
+    font-size: 12px;
+  }
+
+  /* usuario_bloqueado — el que no responde — refuerzo visual */
+  .cu-feed.is-blocked {
+    box-shadow: 3px 3px 0 var(--red);
+  }
+  .cu-blocked-txt {
+    font-size: clamp(13px, 4vw, 16px);
+  }
+
+  /* Shortcuts en 2 columnas apretadas */
+  .cu-shortcuts {
+    margin: 32px auto 0;
+    padding: 18px 16px;
+  }
+  .cu-shortcuts-h { font-size: 17px; }
+  .cu-shortcuts-sub { font-size: 12px; margin-bottom: 14px; }
+  .cu-shortcuts-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .cu-shortcut { padding: 12px 8px; }
+  .cu-shortcut-icon { font-size: 22px; }
+  .cu-shortcut-lbl { font-size: 12px; }
+  .cu-shortcut-url { font-size: 9px; }
+
+  /* Status bar oculta — ocupa espacio sin dar info útil en mobile */
+  .mosaic-status { display: none; }
+}
+
+/* Phones muy chicos */
+@media (max-width: 380px) {
+  .cu-logo { font-size: 42px; letter-spacing: -0.5px; }
+  .cu-page-inner { padding: 20px 12px 32px; }
+  .cu-feed-title { font-size: 15px; }
+}
+
+/* ── Status bar Aero (footer) ── */
 .mosaic-status {
-  display: flex; gap: 2px;
-  background: var(--cold-white);
-  border-top: 1px solid var(--black);
-  padding: 3px 4px;
+  display: flex; gap: 4px; align-items: center;
+  background: var(--aero-footer-bg);
+  border-top: 1px solid var(--aero-titlebar-border);
+  padding: 4px 10px;
   flex: none;
+  min-height: 26px;
 }
 .ms-tab {
-  padding: 2px 12px;
-  background: var(--cold-white);
-  border: 1px solid var(--black);
-  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #808080;
-  font-family: var(--f-pixel);
-  font-size: 10px;
+  padding: 3px 12px;
+  background: transparent;
+  border: none;
+  font-family: var(--f-ui);
+  font-size: 12px;
   color: var(--black);
-  letter-spacing: 0.4px;
-  text-transform: lowercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 .ms-fill {
   flex: 1;
-  background: var(--cold-white);
-  border: 1px solid var(--black);
-  box-shadow: inset 1px 1px 0 #808080;
-  padding: 2px 10px;
-  font-family: var(--f-crt);
-  font-size: 13px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 3px 10px;
+  font-family: var(--f-ui);
+  font-size: 12px;
   color: var(--grey);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   line-height: 1.4;
+  font-style: italic;
 }

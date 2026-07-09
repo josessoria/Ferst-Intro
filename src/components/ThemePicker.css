@@ -1,24 +1,25 @@
 .tp {
   position: fixed;
   right: 8px;
-  bottom: 38px;
+  bottom: 48px;
   z-index: 10001;
-  font-family: 'MS Sans Serif', Tahoma, sans-serif;
+  font-family: var(--f-ui);
 }
 
 .tp-btn {
   display: flex; align-items: center; gap: 6px;
-  padding: 2px 8px;
-  background: var(--cold-white);
+  padding: 4px 10px;
+  background: var(--aero-btn-bg);
   color: var(--black);
-  border: 1px solid var(--black);
-  box-shadow: inset 1px 1px 0 var(--chrome-hi), inset -1px -1px 0 var(--chrome-lo);
-  font-family: 'MS Sans Serif', Tahoma, sans-serif;
-  font-size: 11px;
+  border: 1px solid var(--aero-btn-border);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+  font-family: var(--f-ui);
+  font-size: 12px;
   cursor: pointer;
+  border-radius: 3px;
 }
-.tp-btn:hover { background: var(--white); }
-.tp-btn:active { box-shadow: inset -1px -1px 0 var(--chrome-hi), inset 1px 1px 0 var(--chrome-lo); }
+.tp-btn:hover { background: var(--aero-btn-bg-hover); border-color: var(--aero-btn-border-hover); }
+.tp-btn:active { background: var(--aero-btn-bg-active); }
 
 .tp-dot {
   width: 8px; height: 8px;
@@ -31,12 +32,13 @@
   position: absolute;
   right: 0;
   bottom: calc(100% + 4px);
-  background: var(--cold-white);
-  border: 1px solid var(--black);
-  box-shadow: 2px 2px 0 var(--black);
-  min-width: 220px;
-  padding: 2px;
-  font-family: 'MS Sans Serif', Tahoma, sans-serif;
+  background: var(--white);
+  border: 1px solid var(--aero-titlebar-border);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  border-radius: 4px;
+  min-width: 230px;
+  padding: 4px;
+  font-family: var(--f-ui);
 }
 .tp-menu-h {
   padding: 4px 8px 2px;
@@ -65,14 +67,15 @@
   width: 100%;
   background: transparent;
   border: none;
-  padding: 4px 8px;
+  padding: 6px 10px;
   text-align: left;
   cursor: pointer;
   color: var(--black);
-  font-family: 'MS Sans Serif', Tahoma, sans-serif;
+  font-family: var(--f-ui);
+  border-radius: 2px;
 }
-.tp-item:hover { background: var(--blue); color: #fff; }
-.tp-item:hover .tp-item-detail { color: rgba(255,255,255,0.75); }
+.tp-item:hover { background: linear-gradient(180deg, #cde5f5 0%, #9dcbea 100%); color: var(--black); }
+.tp-item:hover .tp-item-detail { color: rgba(0,0,0,0.65); }
 .tp-item.active { background: transparent; }
 .tp-item.active::before { content: '● '; color: var(--red); }
 
@@ -87,4 +90,26 @@
   color: var(--grey);
   display: block;
   margin-top: 1px;
+}
+
+/* Mobile: picker más discreto (ícono nada más) */
+@media (max-width: 640px) {
+  .tp {
+    right: 6px;
+    bottom: 40px;
+  }
+  .tp-btn {
+    padding: 3px 8px;
+    font-size: 10px;
+  }
+  .tp-label { display: none; }
+  .tp-menu {
+    min-width: 200px;
+    max-width: calc(100vw - 20px);
+    right: 0;
+  }
+}
+/* Phones muy chicos — ocultar por completo */
+@media (max-width: 380px) {
+  .tp { display: none; }
 }

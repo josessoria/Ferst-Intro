@@ -68,106 +68,128 @@ video, img {
 .os-main {
   position: absolute;
   top: 0; left: 0; right: 0;
-  bottom: 30px;
+  bottom: 40px;
   overflow: hidden;
 }
 
 /* ═══════════════════════════════════════════
-   Taskbar — Y2K chunky monochrome
+   Taskbar — Windows 7 dark glass
    ═══════════════════════════════════════════ */
 .os-taskbar {
   position: absolute;
   left: 0; right: 0; bottom: 0;
-  height: 32px;
+  height: 40px;
   display: flex; align-items: stretch;
-  background: var(--black);
-  color: var(--cold-white);
-  padding: 2px 3px;
-  gap: 2px;
+  background:
+    linear-gradient(180deg,
+      rgba(20,25,35,0.95) 0%,
+      rgba(8,12,20,0.98) 50%,
+      rgba(15,18,25,0.98) 100%);
+  color: #ffffff;
+  padding: 0;
+  gap: 0;
   z-index: 10000;
-  font-family: var(--f-pixel);
-  font-size: 11px;
-  border-top: 2px solid var(--cold-white);
-  box-shadow: inset 0 1px 0 #303033;
+  font-family: var(--f-ui);
+  font-size: 12px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 -2px 6px rgba(0,0,0,0.35);
 }
 .os-start {
-  display: flex; align-items: center; gap: 6px;
-  padding: 0 12px;
-  background: var(--black);
-  border: 1px solid var(--cold-white);
-  box-shadow: inset 1px 1px 0 #303033, inset -1px -1px 0 #000;
-  color: var(--cold-white);
-  font-family: var(--f-pixel);
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 14px;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-family: var(--f-ui);
   font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0;
+  text-transform: none;
+  border-right: 1px solid rgba(255,255,255,0.08);
 }
-.os-start:hover { background: var(--red); }
-.os-start:active { box-shadow: inset -1px -1px 0 #303033, inset 1px 1px 0 #000; }
+.os-start:hover {
+  background: linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 100%);
+}
 .os-flag {
   display: inline-block;
-  width: 10px; height: 10px;
-  background: var(--red);
-  border-radius: 0;
-  box-shadow: 1px 0 0 #fff, 0 1px 0 #fff;
+  width: 16px; height: 16px;
+  background:
+    radial-gradient(circle at 30% 30%,
+      #ffffff 0 3px,
+      #4e9be3 4px 8px,
+      #1c6da6 9px 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(78,155,227,0.4);
 }
 .os-tasks {
   flex: 1;
   display: flex; gap: 2px;
   overflow-x: auto;
   scrollbar-width: none;
+  padding: 3px 4px;
 }
 .os-tasks::-webkit-scrollbar { display: none; }
 .os-taskbtn {
-  display: flex; align-items: center; gap: 6px;
-  padding: 0 10px;
-  background: var(--black);
-  border: 1px solid #303033;
-  box-shadow: inset 1px 1px 0 #303033, inset -1px -1px 0 #000;
-  color: var(--cold-white);
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 3px;
+  color: #ffffff;
   white-space: nowrap;
-  min-width: 110px;
+  min-width: 130px;
   text-align: left;
-  font-family: var(--f-pixel);
-  font-size: 11px;
-  letter-spacing: 0.3px;
+  font-family: var(--f-ui);
+  font-size: 12px;
+  letter-spacing: 0;
 }
-.os-taskbtn:hover { background: #202024; }
+.os-taskbtn:hover {
+  background: linear-gradient(180deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.06) 100%);
+  border-color: rgba(255,255,255,0.20);
+}
 .os-taskbtn.active {
-  background: var(--cold-white); color: var(--black);
-  box-shadow: inset -1px -1px 0 #fff, inset 1px 1px 0 #808080;
+  background: linear-gradient(180deg, rgba(78,155,227,0.35) 0%, rgba(28,109,166,0.45) 100%);
+  border-color: rgba(78,155,227,0.6);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.20);
 }
 .os-taskbtn.min { opacity: 0.55; }
-.os-taskicon { flex: none; font-size: 11px; line-height: 1; opacity: 0.85; }
+.os-taskicon { flex: none; font-size: 14px; line-height: 1; opacity: 0.95; }
 .os-tasklabel { overflow: hidden; text-overflow: ellipsis; }
 
 .os-tray {
-  display: flex; align-items: center; gap: 10px;
-  padding: 0 12px;
-  background: var(--black);
-  border: 1px solid #303033;
-  box-shadow: inset 1px 1px 0 #000, inset -1px -1px 0 #303033;
-  color: var(--grey);
+  display: flex; align-items: center; gap: 14px;
+  padding: 0 14px;
+  background: transparent;
+  border: none;
+  border-left: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.75);
 }
-.os-tray span { font-size: 11px; }
+.os-tray span { font-size: 13px; }
 .os-clock {
-  font-family: var(--f-pixel);
-  color: var(--cold-white);
-  letter-spacing: 0.5px;
+  font-family: var(--f-ui);
+  color: #ffffff;
+  letter-spacing: 0;
+  font-size: 12px;
 }
 
-@media (max-width: 560px) {
+@media (max-width: 640px) {
   .os-tasklabel { display: none; }
-  .os-taskbtn { min-width: auto; padding: 0 10px; }
+  .os-taskbtn { min-width: auto; padding: 0 12px; }
   .os-start b { display: none; }
+  .os-start { padding: 0 10px; }
+  .os-taskicon { font-size: 14px; }
+  /* área mínima táctil confortable (44px según Apple HIG) */
+  .os-taskbtn { min-height: 100%; }
+  .os-tray span { font-size: 13px; }
 }
 
 /* ═══════════════════════════════════════════
    Utility patterns
    ═══════════════════════════════════════════ */
-a { color: var(--blue); text-decoration: underline; text-underline-offset: 2px; font-family: var(--f-link); }
-a:visited { color: var(--blue); }
+a { color: var(--link); text-decoration: underline; text-underline-offset: 2px; font-family: var(--f-link); }
+a:visited { color: var(--link); }
 a:hover { color: var(--black); background: var(--cold-white); }
 
 .badge-live {

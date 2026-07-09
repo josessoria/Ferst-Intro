@@ -1,45 +1,60 @@
 .ads-win {
   max-width: 820px;
   width: 92vw;
-  background: var(--cold-white);
+  background: var(--white);
   color: var(--black);
   font-family: var(--f-body);
-  border: 1px solid var(--black);
-  box-shadow:
-    2px 2px 0 var(--black),
-    inset -1px -1px 0 #808080,
-    inset  1px  1px 0 #fff;
+  border: 1px solid var(--aero-frame);
+  box-shadow: var(--aero-window-shadow);
+  border-radius: 6px 6px 0 0;
   overflow: hidden;
 }
 
 .ads-titlebar {
   display: flex; align-items: center; gap: 6px;
-  background: var(--black);
-  color: var(--cold-white);
-  padding: 4px 8px;
-  font-family: var(--f-pixel);
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.5px;
-  text-transform: lowercase;
-  border-bottom: 1px solid var(--black);
+  background: var(--aero-titlebar-bg);
+  color: var(--aero-titlebar-text);
+  padding: 0 0 0 10px;
+  font-family: var(--f-ui);
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0;
+  text-transform: none;
+  border-bottom: 1px solid var(--aero-titlebar-border);
+  height: 28px;
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.06);
 }
-.ads-tb-icon { font-size: 12px; color: var(--grey); }
+.ads-tb-icon { font-size: 13px; color: #b02020; }
 .ads-tb-text { flex: 1; }
-.ads-tb-ctrls { display: flex; gap: 4px; }
-.ads-tb-ctrls .mc {
-  width: 20px; height: 18px;
-  padding: 0;
-  background: var(--cold-white);
-  border: 1px solid var(--black);
-  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #808080;
-  color: var(--black);
-  font-family: var(--f-pixel);
-  font-size: 11px;
+.ads-tb-ctrls {
+  display: flex;
+  height: 28px;
+  align-items: flex-start;
+  padding: 0 5px 0 0;
+  gap: 1px;
 }
-.ads-tb-ctrls .mc:hover { background: var(--white); }
-.ads-tb-ctrls .mc-x:hover { background: var(--red); color: #fff; }
-.ads-tb-ctrls .mc:active { box-shadow: inset -1px -1px 0 #fff, inset 1px 1px 0 #808080; }
+.ads-tb-ctrls .mc {
+  width: 24px; height: 19px;
+  padding: 0;
+  background: var(--aero-tb-btn-bg);
+  border: 1px solid var(--aero-btn-close-border);
+  border-top: none;
+  color: #ffffff;
+  font-family: var(--f-ui);
+  font-size: 11px;
+  border-radius: 0 0 2px 2px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+  cursor: pointer;
+}
+.ads-tb-ctrls .mc:hover { background: var(--aero-tb-btn-bg-hover); }
+.ads-tb-ctrls .mc-x {
+  width: 32px;
+  background: var(--aero-btn-close-bg);
+  color: #ffffff;
+  border-radius: 0 0 2px 2px;
+}
+.ads-tb-ctrls .mc-x:hover { background: var(--aero-btn-close-bg-hover); }
+.ads-tb-ctrls .mc:active { background: var(--aero-tb-btn-bg-active); box-shadow: none; }
 
 .ads-paper {
   background: var(--cold-white);
@@ -200,4 +215,50 @@
   color: var(--grey);
   letter-spacing: 0.5px;
   text-transform: lowercase;
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE — periódico legible
+   ═══════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .ads-win {
+    width: 100%;
+    max-width: none;
+    box-shadow: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .ads-titlebar {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  .ads-tb-ctrls .mc {
+    width: 30px; height: 26px;
+    font-size: 13px;
+  }
+
+  .ads-paper {
+    max-height: none;
+    flex: 1;
+    padding: 22px 18px;
+  }
+
+  .ads-title {
+    font-size: clamp(42px, 12vw, 60px);
+    letter-spacing: -1.5px;
+  }
+  .ads-date { font-size: 10px; }
+  .ads-issue { font-size: 11px; }
+
+  .ads-columns {
+    column-count: 1;
+    column-gap: 0;
+  }
+
+  .ads-head { font-size: 12px; letter-spacing: 1.5px; }
+  .ads-item { font-size: 13px; margin-bottom: 18px; padding-bottom: 14px; }
+  .ads-lead { font-size: 12px; }
 }

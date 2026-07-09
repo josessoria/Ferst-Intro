@@ -3,13 +3,15 @@ import CUSeeMe from './windows/CUSeeMe'
 import MSN from './windows/MSN'
 import LimeWire from './windows/LimeWire'
 import Classifieds from './windows/Classifieds'
+import RetroPlayerWindow from './components/RetroPlayerWindow'
 import WindowFrame from './components/WindowFrame'
 import ThemePicker from './components/ThemePicker'
 
 const APPS = {
-  msn:      { Component: MSN,         label: 'MSN Messenger', pos: { x: 120, y: 90  } },
-  limewire: { Component: LimeWire,    label: 'donde_estas?',  pos: { x: 80,  y: 200 } },
-  ads:      { Component: Classifieds, label: 'El Anuncio',    pos: { x: 300, y: 110 } },
+  msn:      { Component: MSN,               label: 'MSN Messenger', pos: { x: 120, y: 90  } },
+  limewire: { Component: LimeWire,          label: 'donde_estas?',  pos: { x: 80,  y: 200 } },
+  mp3:      { Component: RetroPlayerWindow, label: 'mp3 file',      pos: { x: 220, y: 160 } },
+  ads:      { Component: Classifieds,       label: 'El Anuncio',    pos: { x: 300, y: 110 } },
 }
 
 export default function App() {
@@ -105,8 +107,10 @@ export default function App() {
               title={w.props?.contact ? `${APPS[w.app].label} — ${w.props.contact}` : APPS[w.app].label}
             >
               <span className="os-taskicon">
-                {w.app === 'msn' ? '💬' :
-                 w.app === 'limewire' ? '🔍' : '📰'}
+                {w.app === 'msn'      ? '💬' :
+                 w.app === 'limewire' ? '🔍' :
+                 w.app === 'mp3'      ? '♪' :
+                                        '📰'}
               </span>
               <span className="os-tasklabel">
                 {w.props?.contact

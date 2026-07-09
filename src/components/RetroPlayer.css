@@ -1,0 +1,227 @@
+/* ═══════════════════════════════════════════════════════════════
+   RetroPlayer — reproductor estilo Windows XP media player
+   Panel plateado con bevels, botones 3D, campos con dropdown
+   ═══════════════════════════════════════════════════════════════ */
+
+.retro-player {
+  display: flex;
+  gap: 14px;
+  background: var(--cold-white);
+  border: 1px solid #a0a0a0;
+  box-shadow:
+    inset 1px 1px 0 #ffffff,
+    inset -1px -1px 0 #c0c0c0,
+    3px 3px 6px rgba(0,0,0,0.12);
+  padding: 14px;
+  max-width: 540px;
+  width: 100%;
+  margin: 0 auto 32px;
+  font-family: Tahoma, 'MS Sans Serif', sans-serif;
+  -webkit-font-smoothing: none;
+  border-radius: 2px;
+}
+
+/* ─── Album cover ─── */
+.rp-cover {
+  width: 130px;
+  min-height: 160px;
+  background: linear-gradient(180deg, #dcdcdc 0%, #c8c8c8 100%);
+  border: 1px solid #7a7a7a;
+  box-shadow:
+    inset 1px 1px 0 #ffffff,
+    inset -1px -1px 0 #808080;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  font-size: 13px;
+  text-align: center;
+  padding: 8px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.rp-cover img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.rp-cover-txt {
+  font-family: Tahoma, sans-serif;
+  line-height: 1.4;
+  color: #333;
+  font-size: 13px;
+}
+
+/* ─── Body (fields + controls) ─── */
+.rp-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+/* ─── Input fields ─── */
+.rp-field {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.rp-field label {
+  font-family: Tahoma, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  color: #000;
+  min-width: 42px;
+  -webkit-font-smoothing: none;
+}
+.rp-field input {
+  flex: 1;
+  min-width: 0;
+  padding: 3px 6px;
+  border: 1px solid #7a7a7a;
+  background: #ffffff;
+  box-shadow: inset 1px 1px 0 #808080, inset -1px -1px 0 #ffffff;
+  font-family: Tahoma, sans-serif;
+  font-size: 11px;
+  color: #000;
+  height: 20px;
+  outline: none;
+  -webkit-font-smoothing: none;
+}
+
+/* ─── Dropdown "<D:> ▼" button ─── */
+.rp-drop {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 6px;
+  height: 20px;
+  background: linear-gradient(180deg, #ffffff 0%, #d4d0c8 100%);
+  border: 1px solid #7a7a7a;
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #808080;
+  font-family: Tahoma, sans-serif;
+  font-size: 10px;
+  color: #000;
+  cursor: default;
+  -webkit-font-smoothing: none;
+  flex-shrink: 0;
+}
+.rp-arrow {
+  font-size: 7px;
+  margin-left: 1px;
+}
+
+/* ─── Progress slider ─── */
+.rp-progress-wrap {
+  padding: 4px 0 2px;
+}
+.rp-progress {
+  width: 100%;
+  height: 18px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  margin: 0;
+  cursor: pointer;
+}
+.rp-progress:disabled { cursor: default; }
+
+/* WebKit slider track */
+.rp-progress::-webkit-slider-runnable-track {
+  height: 3px;
+  background: #808080;
+  border: 1px solid #333333;
+  border-radius: 0;
+  box-shadow: inset 1px 1px 0 #4a4a4a;
+}
+.rp-progress::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #d4d0c8 100%);
+  border: 1px solid #7a7a7a;
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #808080;
+  margin-top: -8px;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+/* Firefox slider */
+.rp-progress::-moz-range-track {
+  height: 3px;
+  background: #808080;
+  border: 1px solid #333;
+}
+.rp-progress::-moz-range-thumb {
+  width: 12px;
+  height: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #d4d0c8 100%);
+  border: 1px solid #7a7a7a;
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #808080;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+/* ─── Transport buttons ─── */
+.rp-buttons {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 3px;
+  margin-top: 4px;
+}
+.rp-btn {
+  height: 24px;
+  background: linear-gradient(180deg, #ffffff 0%, #ece9d8 45%, #d4d0c8 100%);
+  border: 1px solid #7a7a7a;
+  box-shadow:
+    inset 1px 1px 0 #ffffff,
+    inset -1px -1px 0 #808080;
+  font-family: Tahoma, sans-serif;
+  font-size: 11px;
+  color: #000;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-font-smoothing: none;
+}
+.rp-btn:hover:not(:disabled) {
+  background: linear-gradient(180deg, #ffffff 0%, #ece9d8 50%, #cfc9b8 100%);
+}
+.rp-btn:active:not(:disabled) {
+  box-shadow: inset -1px -1px 0 #ffffff, inset 1px 1px 0 #808080;
+}
+.rp-btn:disabled {
+  color: #999999;
+  cursor: not-allowed;
+}
+.rp-btn:disabled .rp-ico { opacity: 0.55; }
+
+.rp-ico {
+  display: inline-block;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: -1px;
+  color: #000;
+  transform: translateY(-1px);
+}
+.rp-ico-sq { font-size: 12px; letter-spacing: 0; }
+.rp-ico-rec { font-size: 12px; letter-spacing: 0; color: #000; }
+
+/* ═══════════════════════════════════════════════════════════════
+   Mobile — layout vertical
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .retro-player {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+  }
+  .rp-cover {
+    width: 100%;
+    min-height: 120px;
+  }
+}

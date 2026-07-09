@@ -49,6 +49,70 @@
   --chrome-lo:     #808080;
   --chrome-shadow: #303033;
 
+  /* ═══ Windows 7 Aero chrome ═══ */
+  --aero-frame:        #4d4d4d;
+  --aero-frame-inner:  #dadada;
+
+  /* Titlebar gradient bien oscuro (referencia Video to GIF Converter) */
+  --aero-titlebar-bg:
+    linear-gradient(180deg, #1a1a1a 0%, #050505 50%, #101010 100%);
+  --aero-titlebar-border: #000000;
+  --aero-titlebar-text:   #ffffff;
+  --aero-titlebar-shine:
+    linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 60%);
+
+  /* Buttons min/max en el titlebar (dark, apenas más claros para leer) */
+  --aero-tb-btn-bg:
+    linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 50%, #080808 100%);
+  --aero-tb-btn-bg-hover:
+    linear-gradient(180deg, #3a3a3a 0%, #262626 50%, #141414 100%);
+  --aero-tb-btn-bg-active:
+    linear-gradient(180deg, #080808 0%, #1a1a1a 100%);
+
+  /* Botón cerrar — mismo dark que min/max */
+  --aero-btn-close-bg:
+    linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 50%, #080808 100%);
+  --aero-btn-close-bg-hover:
+    linear-gradient(180deg, #c73333 0%, #a01a1a 50%, #7a1010 100%);
+  --aero-btn-close-border: #000000;
+
+  /* Bottom bar (mismo dark que titlebar) */
+  --aero-footer-bg:
+    linear-gradient(180deg, #101010 0%, #050505 50%, #1a1a1a 100%);
+
+  /* Botón Aero azul (Load Video, Next) */
+  --aero-btn-blue-bg:
+    linear-gradient(180deg, #5aabdb 0%, #3389c6 50%, #1c6da6 100%);
+  --aero-btn-blue-bg-hover:
+    linear-gradient(180deg, #7bbfe4 0%, #4499d0 50%, #2977b3 100%);
+  --aero-btn-blue-bg-active:
+    linear-gradient(180deg, #1c6da6 0%, #3389c6 50%, #5aabdb 100%);
+  --aero-btn-blue-border: #1c548a;
+
+  /* Botón neutral (min / max / general) */
+  --aero-btn-bg:
+    linear-gradient(180deg, #ffffff 0%, #f0f0f0 50%, #d8d8d8 100%);
+  --aero-btn-bg-hover:
+    linear-gradient(180deg, #ffffff 0%, #e5f3fd 50%, #b8dbf5 100%);
+  --aero-btn-bg-active:
+    linear-gradient(180deg, #c8c8c8 0%, #dadada 100%);
+  --aero-btn-border: #a0a0a0;
+  --aero-btn-border-hover: #5f9fd2;
+
+  /* Inputs */
+  --aero-input-bg:      #ffffff;
+  --aero-input-border:  #a0a0a0;
+  --aero-input-focus:   #4e9be3;
+  --aero-input-shadow:  inset 0 1px 2px rgba(0,0,0,0.08);
+
+  /* Divisores de sección */
+  --aero-divider: #dedede;
+
+  /* Sombra de ventana */
+  --aero-window-shadow:
+    0 3px 12px rgba(0,0,0,0.20),
+    0 1px 0 rgba(255,255,255,0.6) inset;
+
   /* Tamaños tipográficos */
   --fs-xxs:  9px;
   --fs-xs:  10px;
@@ -80,20 +144,24 @@
    ═══════════════════════════════════════════════════════════════ */
 :root {
   /* ─── Fuentes semánticas ─── */
-  --f-title:   Georgia, 'Times New Roman', serif;   /* logo Silk-Road-esque, obituarios */
-  --f-display: Verdana, Arial, sans-serif;          /* titles de tarjetas, contactos */
-  --f-body:    Verdana, Arial, sans-serif;          /* cuerpo, mensajes, párrafos */
-  --f-ui:      Verdana, Arial, sans-serif;          /* botones, menús, titlebars */
-  --f-link:    Verdana, Arial, sans-serif;          /* hipervínculos subrayados */
-  --f-mono:    Verdana, Arial, sans-serif;          /* metadata — Silk Road no usa mono */
-  --f-crt:     Verdana, Arial, sans-serif;          /* status bar, address bar */
-  --f-pixel:   Verdana, Arial, sans-serif;          /* chrome */
-  --f-serif:   Georgia, 'Times New Roman', serif;   /* citas, énfasis */
-  --f-num:     Georgia, 'Times New Roman', serif;   /* números italicizados (2,066) */
+  --f-title:   Georgia, 'Times New Roman', serif;           /* logo, obituarios (Silk Road) */
+  --f-display: Verdana, Arial, sans-serif;                  /* titles de tarjetas, contactos */
+  --f-body:    Verdana, Arial, sans-serif;                  /* cuerpo, mensajes */
+  --f-ui:      Tahoma, 'MS Sans Serif', 'Segoe UI',
+               system-ui, -apple-system, Arial, sans-serif; /* Chrome Windows XP/7 — pixel-crisp */
+  --f-link:    Verdana, Arial, sans-serif;                  /* hipervínculos */
+  --f-mono:    Verdana, Arial, sans-serif;                  /* metadata */
+  --f-crt:     Tahoma, 'MS Sans Serif', 'Segoe UI', sans-serif;      /* status bar, address bar */
+  --f-pixel:   Tahoma, 'MS Sans Serif', 'Segoe UI', sans-serif;      /* chrome */
+  --f-serif:   Georgia, 'Times New Roman', serif;           /* citas */
+  --f-num:     Georgia, 'Times New Roman', serif;           /* números italic */
 
   /* Peso base */
   --fw-normal: 400;
   --fw-bold:   700;
+
+  /* Color de hipervínculos — rojo (los focus de inputs siguen azules) */
+  --link: var(--red);
 }
 
 /* Selector explícito (para que el theme picker lo muestre como activo) */
@@ -101,11 +169,11 @@
   --f-title:   Georgia, 'Times New Roman', serif;
   --f-display: Verdana, Arial, sans-serif;
   --f-body:    Verdana, Arial, sans-serif;
-  --f-ui:      Verdana, Arial, sans-serif;
+  --f-ui:      Tahoma, 'MS Sans Serif', 'Segoe UI', system-ui, sans-serif;
   --f-link:    Verdana, Arial, sans-serif;
   --f-mono:    Verdana, Arial, sans-serif;
-  --f-crt:     Verdana, Arial, sans-serif;
-  --f-pixel:   Verdana, Arial, sans-serif;
+  --f-crt:     Tahoma, 'MS Sans Serif', 'Segoe UI', sans-serif;
+  --f-pixel:   Tahoma, 'MS Sans Serif', 'Segoe UI', sans-serif;
   --f-serif:   Georgia, 'Times New Roman', serif;
   --f-num:     Georgia, 'Times New Roman', serif;
 }
@@ -182,7 +250,20 @@
    ═══════════════════════════════════════════════════════════════ */
 html { image-rendering: pixelated; image-rendering: -moz-crisp-edges; }
 body {
-  -webkit-font-smoothing: auto;
+  /* Chrome Windows: aliased pixel-crisp, sin antialiasing agresivo */
+  -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: auto;
-  text-rendering: optimizeLegibility;
+  text-rendering: geometricPrecision;
+}
+/* Fuentes semanticas de UI: forzar pixel-crisp donde importa */
+.mosaic-titlebar, .msn-title, .lw-title, .ads-titlebar,
+.mm, .msn-m, .lw-menu span,
+.mtb-btn, .msn-send, .lw-btn-search, .lw-preview-play,
+.ms-tab, .ms-fill, .msn-status, .lw-foot,
+.mosaic-status, .mosaic-bookmarks, .mosaic-toolbar,
+.msn-log, .msn-msg-from, .msn-sys,
+.cu-feed-bar, .cu-feed-title, .cu-feed-sub, .cu-feed-loc, .cu-feed-foot,
+.mbm-btn, .mbm-label {
+  font-smooth: never;
+  -webkit-font-smoothing: none;
 }

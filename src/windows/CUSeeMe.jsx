@@ -78,10 +78,34 @@ const feeds = [
   },
 ]
 
+/* ─── Iconos SOLID FILL negros (estilo Windows XP · siluetas rellenas) ─── */
+const IconMSN = () => (
+  <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true">
+    <path d="M3 2h10a1.5 1.5 0 0 1 1.5 1.5v6A1.5 1.5 0 0 1 13 11H9l-3 3v-3H3a1.5 1.5 0 0 1-1.5-1.5v-6A1.5 1.5 0 0 1 3 2z"/>
+  </svg>
+)
+const IconSearch = () => (
+  <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true">
+    <circle cx="6.5" cy="6.5" r="4.5"/>
+    <path d="M10.5 10.5l4.5 4.5-1.5 1.5-4.5-4.5z"/>
+  </svg>
+)
+const IconMP3 = () => (
+  <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true">
+    <ellipse cx="5" cy="12" rx="3" ry="2"/>
+    <path d="M7.3 3l6.7-1.5v9.5a2 2 0 1 1-1.5-1.9V4L8.8 5v7H7.3V3z"/>
+  </svg>
+)
+const IconPill = () => (
+  <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true">
+    <path d="M10.5 1.5a3.5 3.5 0 0 1 2.5 5.98l-5.02 5.02a3.5 3.5 0 0 1-4.95-4.95L8.05 2.55a3.49 3.49 0 0 1 2.45-1.05z"/>
+  </svg>
+)
+
 const bookmarks = [
-  { app: 'msn',      label: 'MSN Messenger', icon: '💬' },
-  { app: 'limewire', label: 'donde_estas?',  icon: '🔍' },
-  { app: 'ads',      label: 'El Anuncio',    icon: '📰' },
+  { app: 'msn',      label: 'MSN Messenger', icon: <IconMSN />,    emoji: '💬' },
+  { app: 'limewire', label: 'donde_estas?',  icon: <IconSearch />, emoji: '🔍' },
+  { app: 'mp3',      label: 'mp3 file',      icon: <IconMP3 />,    emoji: '♪' },
 ]
 
 export default function CUSeeMe({ onOpen }) {
@@ -102,6 +126,7 @@ export default function CUSeeMe({ onOpen }) {
     const u = url.toLowerCase()
     if (u.includes('msn'))                                    onOpen('msn')
     else if (u.startsWith('donde://') || u.includes('busca')) onOpen('limewire')
+    else if (u.includes('mp3') || u.includes('recording'))    onOpen('mp3')
     else if (u.includes('anuncio') || u.includes('classi'))   onOpen('ads')
     else if (u.includes('salvacion') || u.includes('plug'))   onOpen('msn', { contact: 'salvacion_plug_24hs' })
     else if (u.includes('/fé') || u.includes('/fe'))          onOpen('msn', { contact: 'fé' })
@@ -269,9 +294,10 @@ export default function CUSeeMe({ onOpen }) {
                   <div className="cu-shortcut-icon">{b.icon}</div>
                   <div className="cu-shortcut-lbl">{b.label}</div>
                   <div className="cu-shortcut-url">
-                    {b.app === 'msn' && 'msn://usuario_bloqueado'}
+                    {b.app === 'msn'      && 'msn://usuario_bloqueado'}
                     {b.app === 'limewire' && 'donde://usuario_bloqueado'}
-                    {b.app === 'ads' && 'file:///el_anuncio.pdf'}
+                    {b.app === 'mp3'      && 'file:///1st-recording.mp3'}
+                    {b.app === 'ads'      && 'file:///el_anuncio.pdf'}
                   </div>
                 </a>
               ))}
