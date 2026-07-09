@@ -16,11 +16,12 @@ const APPS = {
 
 export default function App() {
   // wins: [{ id, app, props }]
-  const [wins, setWins]     = useState([])
-  const [minimized, setMin] = useState({})
-  const [zMap, setZMap]     = useState({})
-  const [maxZ, setMaxZ]     = useState(100)
-  const [clock, setClock]   = useState('00:00')
+  const [wins, setWins]       = useState([])
+  const [minimized, setMin]   = useState({})
+  const [maximized, setMax]   = useState({})
+  const [zMap, setZMap]       = useState({})
+  const [maxZ, setMaxZ]       = useState(100)
+  const [clock, setClock]     = useState('00:00')
   const [isMobile, setIsMobile] = useState(
     typeof window !== 'undefined' && window.innerWidth <= 640
   )
@@ -65,6 +66,10 @@ export default function App() {
     setMin(m => ({ ...m, [id]: !m[id] }))
     if (minimized[id]) focusApp(id)
   }
+  const toggleMax = (id) => {
+    setMax(m => ({ ...m, [id]: !m[id] }))
+    focusApp(id)
+  }
 
   return (
     <div className="os">
@@ -87,11 +92,14 @@ export default function App() {
             zIndex={zMap[w.id] || 100}
             onFocus={() => focusApp(w.id)}
             minimized={!!minimized[w.id]}
+            maximized={!!maximized[w.id]}
           >
             <Comp
               {...w.props}
               onClose={() => closeApp(w.id)}
               onMin={() => toggleMin(w.id)}
+              onMax={() => toggleMax(w.id)}
+              isMaximized={!!maximized[w.id]}
               onOpen={openApp}
             />
           </WindowFrame>

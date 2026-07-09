@@ -401,7 +401,11 @@
   border: none;
   height: 100%;
   aspect-ratio: auto;
+  /* El feed entero es clickable — el Slot NO intercepta pointer events */
+  pointer-events: none;
+  cursor: pointer;
 }
+.cu-feed-body .slot input[type="file"] { display: none; }
 
 .cu-blocked {
   position: absolute; inset: 0;

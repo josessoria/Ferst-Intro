@@ -6,7 +6,7 @@ import './RetroPlayerWindow.css'
  * arrastrable en el WM (misma familia visual que MSN, donde_estas?, etc).
  */
 export default function RetroPlayerWindow({
-  onClose, onMin,
+  onClose, onMin, onMax, isMaximized,
   src         = '/first-recording.mp3',
   artist      = '????',
   track       = 'xfavor no t olvides de esto',
@@ -20,7 +20,7 @@ export default function RetroPlayerWindow({
         <span className="rpw-t-text">{fileName}</span>
         <span className="rpw-t-ctrls">
           <button className="mc" onClick={onMin} title="minimizar">_</button>
-          <button className="mc" title="maximizar">□</button>
+          <button className="mc" onClick={onMax} title={isMaximized ? 'restaurar' : 'maximizar'}>{isMaximized ? '❐' : '□'}</button>
           <button className="mc mc-x" onClick={onClose} title="cerrar">×</button>
         </span>
       </header>

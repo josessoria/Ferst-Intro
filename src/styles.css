@@ -204,3 +204,107 @@ a:hover { color: var(--black); background: var(--cold-white); }
   letter-spacing: 0.5px;
   text-transform: lowercase;
 }
+
+/* ═══════════════════════════════════════════
+   SCROLLBAR retro Windows XP — SIEMPRE visible
+   Se aplica a todas las áreas scrolleables dentro de las ventanas
+   ═══════════════════════════════════════════ */
+.win-frame > *,
+.msn-chat, .msn-log,
+.lw-results, .lw-body, .lw-preview,
+.mosaic-page,
+.ads-paper,
+.rpw-body {
+  scrollbar-width: auto;
+  scrollbar-color: #a0a0a0 var(--cold-white);
+}
+
+.win-frame > *::-webkit-scrollbar,
+.msn-chat::-webkit-scrollbar,
+.msn-log::-webkit-scrollbar,
+.lw-results::-webkit-scrollbar,
+.lw-body::-webkit-scrollbar,
+.mosaic-page::-webkit-scrollbar,
+.ads-paper::-webkit-scrollbar,
+.rpw-body::-webkit-scrollbar {
+  width: 16px;
+  -webkit-appearance: none;
+}
+
+.win-frame > *::-webkit-scrollbar-track,
+.msn-chat::-webkit-scrollbar-track,
+.msn-log::-webkit-scrollbar-track,
+.lw-results::-webkit-scrollbar-track,
+.lw-body::-webkit-scrollbar-track,
+.mosaic-page::-webkit-scrollbar-track,
+.ads-paper::-webkit-scrollbar-track,
+.rpw-body::-webkit-scrollbar-track {
+  background:
+    linear-gradient(90deg, #d4d0c8 0%, #ece9d8 50%, #d4d0c8 100%);
+  border-left: 1px solid #808080;
+  box-shadow: inset 1px 0 0 #ffffff;
+}
+
+.win-frame > *::-webkit-scrollbar-thumb,
+.msn-chat::-webkit-scrollbar-thumb,
+.msn-log::-webkit-scrollbar-thumb,
+.lw-results::-webkit-scrollbar-thumb,
+.lw-body::-webkit-scrollbar-thumb,
+.mosaic-page::-webkit-scrollbar-thumb,
+.ads-paper::-webkit-scrollbar-thumb,
+.rpw-body::-webkit-scrollbar-thumb {
+  background:
+    linear-gradient(180deg, #ffffff 0%, #ece9d8 45%, #d4d0c8 100%);
+  border: 1px solid #7a7a7a;
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #808080;
+  min-height: 30px;
+}
+
+.win-frame > *::-webkit-scrollbar-thumb:hover,
+.msn-chat::-webkit-scrollbar-thumb:hover,
+.msn-log::-webkit-scrollbar-thumb:hover,
+.lw-results::-webkit-scrollbar-thumb:hover,
+.mosaic-page::-webkit-scrollbar-thumb:hover,
+.ads-paper::-webkit-scrollbar-thumb:hover {
+  background:
+    linear-gradient(180deg, #ffffff 0%, #ece9d8 50%, #cfc9b8 100%);
+}
+
+.win-frame > *::-webkit-scrollbar-button,
+.msn-chat::-webkit-scrollbar-button,
+.msn-log::-webkit-scrollbar-button,
+.lw-results::-webkit-scrollbar-button,
+.mosaic-page::-webkit-scrollbar-button,
+.ads-paper::-webkit-scrollbar-button,
+.rpw-body::-webkit-scrollbar-button {
+  height: 16px; width: 16px;
+  background:
+    linear-gradient(180deg, #ffffff 0%, #ece9d8 45%, #d4d0c8 100%);
+  border: 1px solid #7a7a7a;
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #808080;
+  display: block;
+}
+
+/* Mobile: forzar overflow scroll para que la barrita se muestre
+   Y titlebars sticky arriba — nunca desaparecen al scrollear */
+@media (max-width: 640px) {
+  .win-frame > * {
+    overflow-y: scroll !important;
+    position: relative;
+  }
+  .win-frame .mosaic-titlebar,
+  .win-frame .msn-title,
+  .win-frame .lw-title,
+  .win-frame .ads-titlebar,
+  .win-frame .rpw-title {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    /* mantiene el fondo opaco para que el contenido no se vea a través */
+    background: var(--aero-titlebar-bg);
+  }
+  /* Ventanas maximizadas usan el mismo tratamiento */
+  .win-frame.maximized > * {
+    overflow-y: scroll !important;
+  }
+}

@@ -1,7 +1,7 @@
 import Slot from '../components/Slot'
 import './Classifieds.css'
 
-export default function Classifieds({ onClose, onMin }) {
+export default function Classifieds({ onClose, onMin, onMax, isMaximized }) {
   return (
     <section className="win ads-win">
       <header className="ads-titlebar win-drag">
@@ -9,7 +9,7 @@ export default function Classifieds({ onClose, onMin }) {
         <span className="ads-tb-text">el_anuncio.pdf — visor de documentos</span>
         <span className="ads-tb-ctrls">
           <button className="mc" onClick={onMin} title="minimizar">_</button>
-          <button className="mc" title="maximizar">□</button>
+          <button className="mc" onClick={onMax} title={isMaximized ? 'restaurar' : 'maximizar'}>{isMaximized ? '❐' : '□'}</button>
           <button className="mc mc-x" onClick={onClose} title="cerrar">×</button>
         </span>
       </header>

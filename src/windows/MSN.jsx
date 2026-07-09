@@ -209,7 +209,7 @@ function fallbackLog(name, blocked) {
 }
 
 export default function MSN({
-  onClose, onMin, onOpen,
+  onClose, onMin, onMax, isMaximized, onOpen,
   contact = 'usuario_bloqueado',
   displayName,
   feedSrc,
@@ -237,7 +237,7 @@ export default function MSN({
         <span className="msn-t-text">{contact} — conversación</span>
         <span className="msn-t-ctrls">
           <button className="mc mc-min" onClick={onMin} title="minimizar">_</button>
-          <button className="mc mc-max" title="maximizar">□</button>
+          <button className="mc mc-max" onClick={onMax} title={isMaximized ? 'restaurar' : 'maximizar'}>{isMaximized ? '❐' : '□'}</button>
           <button className="mc mc-close" onClick={onClose} title="cerrar">×</button>
         </span>
       </header>

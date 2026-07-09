@@ -5,6 +5,30 @@
 }
 .win-frame.minimized { display: none; }
 
+/* Maximizada: fill viewport (dejando el taskbar visible) */
+.win-frame.maximized {
+  position: fixed !important;
+  left: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 40px !important;
+  max-width: none !important;
+  max-height: none !important;
+  width: auto !important;
+  height: auto !important;
+}
+.win-frame.maximized > * {
+  width: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  height: 100% !important;
+  border-radius: 0 !important;
+}
+.win-frame.maximized .win-drag { cursor: default; }
+@media (max-width: 640px) {
+  .win-frame.maximized { bottom: 32px !important; }
+}
+
 /* Mobile — ventanas siguen flotando (no fullscreen) para que se lea
    claramente que son ventanas movibles cuando se cascadean */
 @media (max-width: 640px) {

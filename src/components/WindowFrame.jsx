@@ -13,6 +13,7 @@ export default function WindowFrame({
   zIndex = 100,
   onFocus,
   minimized = false,
+  maximized = false,
 }) {
   const [pos, setPos] = useState(defaultPos)
   const posRef = useRef(pos)
@@ -49,9 +50,9 @@ export default function WindowFrame({
 
   return (
     <div
-      className={`win-frame ${minimized ? 'minimized' : ''}`}
-      style={{ left: pos.x, top: pos.y, zIndex }}
-      onPointerDown={(e) => { onFocus?.(); startDrag(e) }}
+      className={`win-frame ${minimized ? 'minimized' : ''} ${maximized ? 'maximized' : ''}`}
+      style={maximized ? { zIndex } : { left: pos.x, top: pos.y, zIndex }}
+      onPointerDown={(e) => { onFocus?.(); if (!maximized) startDrag(e) }}
     >
       {children}
     </div>

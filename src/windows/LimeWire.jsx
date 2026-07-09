@@ -155,7 +155,7 @@ function Status({ s, p }) {
   return null
 }
 
-export default function LimeWire({ onClose, onMin, onOpen }) {
+export default function LimeWire({ onClose, onMin, onMax, isMaximized, onOpen }) {
   const [selected, setSelected] = useState(0)
   const [query, setQuery]       = useState('usuario_bloqueado')
   const current = results[selected]
@@ -176,7 +176,7 @@ export default function LimeWire({ onClose, onMin, onOpen }) {
         <span className="lw-t-text">donde_estas? — búsqueda global</span>
         <span className="lw-ctrls">
           <button className="mc" onClick={onMin} title="minimizar">_</button>
-          <button className="mc" title="maximizar">□</button>
+          <button className="mc" onClick={onMax} title={isMaximized ? 'restaurar' : 'maximizar'}>{isMaximized ? '❐' : '□'}</button>
           <button className="mc mc-x" onClick={onClose} title="cerrar">×</button>
         </span>
       </header>
