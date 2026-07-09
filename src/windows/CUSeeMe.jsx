@@ -10,7 +10,8 @@ const feeds = [
     title:  'ella no me habla más',
     sub:    'hablo de ella en tercera para no llorar',
     views:  '84,151',  ago: '3 semanas',
-    fps: '14.7', kbps: '18', src: '/cam01.mp4',
+    fps: '14.7', kbps: '18',
+    src: '/Convert%20to%20GIF%20project%20-%2009%20July%202026%20at%2001.01.42.gif',
   },
   {
     handle: 'ella?',
@@ -18,7 +19,7 @@ const feeds = [
     title:  'todavía sos vos?',
     sub:    'ya no sé si estoy hablando con quien creo',
     views:  '175,155', ago: '2 meses',
-    fps: '17.3', kbps: '7',  src: '/cam02.mp4',
+    fps: '17.3', kbps: '7',  src: '/1.gif',
   },
   {
     handle: 'donde_estas?',
@@ -319,7 +320,7 @@ export default function CUSeeMe({ onOpen }) {
             </div>
           </div>
 
-          <p className="cu-caption">D · E · S · K · T · O · P &nbsp;·&nbsp; C · O · N · F · E · S · S · I · O · N · A · L</p>
+          <p className="cu-caption cu-watermark">D · E · S · K · T · O · P &nbsp;·&nbsp; J · O · S · E · S · S · O · R · I · A</p>
           <p className="cu-uni">porque yo sigo ahí en algún rincón · y no hay ficción</p>
           <p className="cu-broughtby">
             un recuerdo de <a href="#" onClick={(e)=>{e.preventDefault(); openContact('t_amo_para_siempre')}}>illuno</a>

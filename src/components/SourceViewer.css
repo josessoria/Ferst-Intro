@@ -1,0 +1,96 @@
+.srcv-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 5100;
+}
+.srcv {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(820px, 94vw);
+  height: min(85vh, 720px);
+  background: #f8f8f8;
+  border: 1px solid var(--aero-frame);
+  box-shadow: var(--aero-window-shadow);
+  border-radius: 6px 6px 0 0;
+  z-index: 5101;
+  font-family: var(--f-ui);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.srcv-title {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--aero-titlebar-bg);
+  color: var(--aero-titlebar-text);
+  padding: 0 0 0 10px;
+  height: 28px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  border-bottom: 1px solid var(--aero-titlebar-border);
+  flex: none;
+}
+.srcv-close {
+  width: 32px; height: 19px;
+  background: var(--aero-btn-close-bg);
+  border: 1px solid var(--aero-btn-close-border);
+  border-top: none;
+  color: #fff;
+  font-family: var(--f-ui);
+  font-size: 11px;
+  border-radius: 0 0 2px 2px;
+  margin: 0 5px 0 0;
+  cursor: pointer;
+}
+.srcv-close:hover { background: var(--aero-btn-close-bg-hover); }
+
+.srcv-body {
+  flex: 1;
+  overflow: auto;
+  background: #ffffff;
+  padding: 0;
+}
+.srcv-code {
+  margin: 0;
+  padding: 20px 24px;
+  font-family: 'Perfect DOS VGA 437', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #1a1a1a;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  tab-size: 2;
+}
+.srcv-code .c { color: #6a8a5a; font-style: italic; }
+.srcv-code .s { color: #a02020; }
+
+.srcv-foot {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 6px 12px;
+  background: var(--aero-footer-bg);
+  color: var(--cold-white);
+  border-top: 1px solid var(--aero-titlebar-border);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  flex: none;
+}
+.srcv-btn {
+  background: var(--aero-btn-bg);
+  border: 1px solid var(--aero-btn-border);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+  padding: 3px 14px;
+  font-family: var(--f-ui);
+  font-size: 12px;
+  color: var(--black);
+  cursor: pointer;
+  border-radius: 3px;
+}
+.srcv-btn:hover { background: var(--aero-btn-bg-hover); }
+
+@media (max-width: 640px) {
+  .srcv {
+    width: 96vw;
+    height: 92vh;
+  }
+  .srcv-code { font-size: 13px; padding: 14px 16px; }
+}

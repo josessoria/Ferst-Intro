@@ -680,6 +680,15 @@
   color: var(--grey);
   text-transform: uppercase;
 }
+/* Marca de agua — visible pero decorativa */
+.cu-watermark {
+  opacity: 0.6;
+  font-size: 9px;
+  letter-spacing: 2px;
+  user-select: none;
+  pointer-events: none;
+  font-style: italic;
+}
 .cu-uni {
   margin: 0;
   font-family: var(--f-serif);
