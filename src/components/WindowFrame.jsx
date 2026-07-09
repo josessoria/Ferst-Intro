@@ -3,9 +3,9 @@ import './WindowFrame.css'
 
 /**
  * Contenedor draggable para ventanas flotantes.
- * - El arrastre se activa desde cualquier elemento con clase .win-drag
- * - Click en cualquier parte trae la ventana al frente (onFocus)
- * - En mobile (< 640px) las ventanas se maximizan y se desactiva el drag
+ * - Drag por elemento con clase .win-drag (funciona en mouse Y touch)
+ * - Click en cualquier parte trae al frente (onFocus)
+ * - Constraints: la ventana nunca sale del viewport (deja mínimo 80px visible)
  */
 export default function WindowFrame({
   children,
@@ -19,7 +19,6 @@ export default function WindowFrame({
   useEffect(() => { posRef.current = pos }, [pos])
 
   const startDrag = (e) => {
-    if (window.innerWidth < 640) return
     const handle = e.target.closest('.win-drag')
     if (!handle) return
     if (e.target.closest('button, input, textarea, select, .mc')) return
@@ -31,16 +30,21 @@ export default function WindowFrame({
     const origY = posRef.current.y
 
     const onMove = (ev) => {
-      const nx = Math.max(0, origX + ev.clientX - startX)
-      const ny = Math.max(0, origY + ev.clientY - startY)
+      // Cap: al menos 80px visible siempre (para que no se pierda la ventana)
+      const maxX = Math.max(0, window.innerWidth - 80)
+      const maxY = Math.max(0, window.innerHeight - 80)
+      const nx = Math.max(0, Math.min(maxX, origX + ev.clientX - startX))
+      const ny = Math.max(0, Math.min(maxY, origY + ev.clientY - startY))
       setPos({ x: nx, y: ny })
     }
     const onUp = () => {
       window.removeEventListener('pointermove', onMove)
       window.removeEventListener('pointerup', onUp)
+      window.removeEventListener('pointercancel', onUp)
     }
     window.addEventListener('pointermove', onMove)
     window.addEventListener('pointerup', onUp)
+    window.addEventListener('pointercancel', onUp)
   }
 
   return (

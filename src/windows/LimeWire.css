@@ -368,11 +368,7 @@
   .lw-win {
     width: 100%;
     max-width: none;
-    box-shadow: none;
-    border: none;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+    /* mantiene border + shadow para ventana flotante */
   }
 
   .lw-menu { display: none; }

@@ -201,8 +201,53 @@
 .msn-log {
   padding: 14px 16px;
   border-right: 1px solid var(--grey-light);
-  overflow-y: auto;
+  overflow-y: scroll;              /* siempre visible la barrita */
+  scrollbar-gutter: stable;
   max-height: 320px;
+  scrollbar-width: auto;
+  scrollbar-color: #a0a0a0 var(--cold-white);
+}
+/* Scrollbar estilo Windows XP · pixel-crisp beveled */
+.msn-log::-webkit-scrollbar {
+  width: 16px;
+}
+.msn-log::-webkit-scrollbar-track {
+  background:
+    linear-gradient(90deg, #d4d0c8 0%, #ece9d8 50%, #d4d0c8 100%);
+  border-left: 1px solid #808080;
+  box-shadow: inset 1px 0 0 #ffffff;
+}
+.msn-log::-webkit-scrollbar-thumb {
+  background:
+    linear-gradient(180deg, #ffffff 0%, #ece9d8 45%, #d4d0c8 100%);
+  border: 1px solid #7a7a7a;
+  box-shadow:
+    inset 1px 1px 0 #ffffff,
+    inset -1px -1px 0 #808080;
+  min-height: 30px;
+}
+.msn-log::-webkit-scrollbar-thumb:hover {
+  background:
+    linear-gradient(180deg, #ffffff 0%, #ece9d8 50%, #cfc9b8 100%);
+}
+.msn-log::-webkit-scrollbar-button {
+  height: 16px; width: 16px;
+  background:
+    linear-gradient(180deg, #ffffff 0%, #ece9d8 45%, #d4d0c8 100%);
+  border: 1px solid #7a7a7a;
+  box-shadow:
+    inset 1px 1px 0 #ffffff,
+    inset -1px -1px 0 #808080;
+  display: block;
+}
+.msn-log::-webkit-scrollbar-button:vertical:decrement {
+  background-image:
+    linear-gradient(180deg, #ffffff 0%, #ece9d8 45%, #d4d0c8 100%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><polygon points='4,10 12,10 8,5' fill='%23000'/></svg>");
+  background-blend-mode: normal;
+}
+.msn-log::-webkit-scrollbar-corner {
+  background: #d4d0c8;
 }
 .msn-msg { margin: 0 0 8px; line-height: 1.5; font-family: var(--f-body); font-size: 13px; }
 /* timestamps "yo dice (22:14)" · Georgia italic (Silk Road numbers style) */
@@ -346,17 +391,13 @@
 }
 
 /* ═══════════════════════════════════════════
-   MOBILE — chat como takeover fullscreen
+   MOBILE — chat como ventana flotante movible
    ═══════════════════════════════════════════ */
 @media (max-width: 640px) {
   .msn-win {
     width: 100%;
     max-width: none;
-    box-shadow: none;
-    border: none;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+    /* mantiene border + shadow para que se lea como ventana flotante */
   }
 
   /* Titlebar más chunky para touch */

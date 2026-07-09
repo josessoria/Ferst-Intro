@@ -5,26 +5,23 @@
 }
 .win-frame.minimized { display: none; }
 
-/* Mobile: las ventanas flotantes → takeover fullscreen
-   con back button implícito (el × del titlebar) */
+/* Mobile — ventanas siguen flotando (no fullscreen) para que se lea
+   claramente que son ventanas movibles cuando se cascadean */
 @media (max-width: 640px) {
   .win-frame {
-    position: fixed !important;
-    left: 0 !important;
-    right: 0 !important;
-    top: 0 !important;
-    bottom: 40px !important;   /* space for W7 taskbar */
-    max-width: none;
-    overflow-y: auto;
-    z-index: 9999 !important;  /* siempre encima */
-    background: var(--cold-white);
+    max-width: 92vw;
+    max-height: 78vh;
   }
-  /* La ventana top ocupa 100% en mobile */
   .win-frame > * {
-    height: 100%;
-    max-width: none !important;
+    max-height: 78vh;
+    overflow-y: auto;
   }
 }
 
-.win-drag { cursor: move; }
-@media (max-width: 640px) { .win-drag { cursor: default; } }
+/* Drag handle — cursor mouse + previene scroll en touch */
+.win-drag {
+  cursor: move;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}

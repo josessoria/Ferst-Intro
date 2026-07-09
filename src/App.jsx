@@ -21,6 +21,15 @@ export default function App() {
   const [zMap, setZMap]     = useState({})
   const [maxZ, setMaxZ]     = useState(100)
   const [clock, setClock]   = useState('00:00')
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== 'undefined' && window.innerWidth <= 640
+  )
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 640)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
 
   useEffect(() => {
     const tick = () => {
@@ -66,10 +75,15 @@ export default function App() {
       {wins.map((w, i) => {
         const app = APPS[w.app]
         const Comp = app.Component
+        // En mobile las ventanas cascadean desde arriba-izquierda
+        // (para que se vea claramente que son ventanas movibles)
+        const defaultPos = isMobile
+          ? { x: 8 + i * 14, y: 12 + i * 26 }
+          : { x: app.pos.x + i * 20, y: app.pos.y + i * 20 }
         return (
           <WindowFrame
             key={w.id}
-            defaultPos={{ x: app.pos.x + i * 20, y: app.pos.y + i * 20 }}
+            defaultPos={defaultPos}
             zIndex={zMap[w.id] || 100}
             onFocus={() => focusApp(w.id)}
             minimized={!!minimized[w.id]}
